@@ -71,7 +71,8 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
             if (widget.label == 'Height') model.height = newValue;
             if (widget.label == 'age') model.age = newValue;
             if (widget.label == 'gender') model.gender = newValue;
-          });
+            },
+          );
         },
         items: widget.items,
       ),
