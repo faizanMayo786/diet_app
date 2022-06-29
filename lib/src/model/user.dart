@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Model {
-  String firstName;
-  String lastName;
-  String email;
-  String password;
+  String weight;
+  String height;
+  String age;
+  String gender;
+  String disease;
+  String registerDate;
 
-  Model({required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.password}); 
+  Model({required this.weight,
+      required this.height,
+      required this.age,
+      required this.gender,
+      required this.disease,
+      required this.registerDate
+      }); 
 }

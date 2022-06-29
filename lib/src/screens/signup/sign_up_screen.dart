@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:diet_suggestion_app/src/screens/info/information_screen.dart';
 import 'package:diet_suggestion_app/src/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,9 @@ class _MyRegisterState extends State<MyRegister> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(
-              'https://raw.githubusercontent.com/resulcay/signup_page/master/assets/images/register.png'),
+          image: AssetImage('assets/images/register.png'),
           fit: BoxFit.cover,
-        ), //irza ko kho whtap
+        ),
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -96,33 +97,35 @@ class _MyRegisterState extends State<MyRegister> {
                       height: 40,
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Sign In',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 27,
-                              fontWeight: FontWeight.w700,
-                            ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 27,
+                            fontWeight: FontWeight.w700,
                           ),
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: const Color(0xff4c505b),
-                            child: IconButton(
-                              color: Colors.white,
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => BasicInfoForm()),
-                                );
-                              },
-                              icon: const Icon(Icons.arrow_forward),
-                            ),
+                        ),
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: const Color(0xff4c505b),
+                          child: IconButton(
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => BasicInfoForm()),
+                                (route) => false,
+                              );
+                            },
+                            icon: const Icon(Icons.arrow_forward),
                           ),
-                        ]),
+                        ),
+                      ],
+                    ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,7 +135,8 @@ class _MyRegisterState extends State<MyRegister> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: ((context) => MyLogin(label: 'User')),
+                                builder: ((context) =>
+                                    MyLogin(label: 'Customer')),
                               ),
                             );
                           },

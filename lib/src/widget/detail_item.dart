@@ -6,7 +6,7 @@ class Item {
   double rating;
   int ratingCount;
   double price;
-  int color; 
+  int color;
   List<String> vitamins;
   List<String> ingrediants;
 
@@ -40,7 +40,7 @@ List<Item> demoItems = [
         'vitamin C',
         'vitamin K'
       ],
-      ingrediants: [
+      ingrediants: [// Ctrl+D se jo same words hote chose hojate
         'assets/icons/ingredient1.svg',
         'assets/icons/ingredient2.svg',
         'assets/icons/ingredient3.svg',

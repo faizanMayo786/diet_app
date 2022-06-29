@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/constants/constants.dart';
 import '../model/item.dart';
+import '../screens/detail/detail_screen.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({
@@ -17,20 +18,26 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => DetailsScreen(item: item)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DetailsScreen(item: item)));
       },
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(45), color: Color(item.color)),
+          borderRadius: BorderRadius.circular(45),
+          color: Color(item.color),
+        ),
         margin: EdgeInsets.only(
-            top: index.isOdd ? 10 : 10, bottom: index.isOdd ? 10 : 10),
+          top: index.isOdd ? 10 : 10,
+          bottom: index.isOdd ? 10 : 10,
+          left: 10,
+          right: 10,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Hero(
               tag: item.id,
-              child: Image.network(
+              child: Image.asset(
                 item.image,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -41,8 +48,8 @@ class ItemCard extends StatelessWidget {
               child: SizedBox(
                 height: 50,
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.4),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: kDefaultPadding * 2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -51,24 +58,23 @@ class ItemCard extends StatelessWidget {
                         children: [
                           Text(
                             item.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 22,
                             ),
                           ),
                           Text(
                             '\$ ${item.price}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: kRedColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
-                          )
+                          ),
                         ],
                       ),
                       IconButton(
-                          icon: SvgPicture.network(
-                              'https://raw.githubusercontent.com/gihan667/nutrition-app/7890658dc7809356875ac78b831fce93f52f105e/assets/icons/heart.svg'),
-                          onPressed: () {})
+                          icon: SvgPicture.asset('assets/icons/heart.svg'),
+                          onPressed: () {}),
                     ],
                   ),
                 ),

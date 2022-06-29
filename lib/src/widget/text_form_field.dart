@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class MyTextFormField extends StatelessWidget {
@@ -5,7 +7,6 @@ class MyTextFormField extends StatelessWidget {
   final bool isPassword;
   final bool isEmail;
   final dynamic onSaved;
-
 
   MyTextFormField({
     required this.hintText,
@@ -17,11 +18,11 @@ class MyTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: EdgeInsets.all(15.0),
+          contentPadding: const EdgeInsets.all(15.0),
           border: InputBorder.none,
           filled: true,
           fillColor: Colors.grey[200],
