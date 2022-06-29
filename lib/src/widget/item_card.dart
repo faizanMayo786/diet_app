@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../../core/constants/constants.dart';
+import '../model/item.dart';
+
+class ItemCard extends StatelessWidget {
+  const ItemCard({
+    Key? key,
+    required this.item,
+    required this.index,
+  }) : super(key: key);
+
+  final Item item;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => DetailsScreen(item: item)));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(45), color: Color(item.color)),
+        margin: EdgeInsets.only(
+            top: index.isOdd ? 10 : 10, bottom: index.isOdd ? 10 : 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Hero(
+              tag: item.id,
+              child: Image.network(
+                item.image,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 50,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.name,
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          ),
+                          Text(
+                            '\$ ${item.price}',
+                            style: TextStyle(
+                              color: kRedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          )
+                        ],
+                      ),
+                      IconButton(
+                          icon: SvgPicture.network(
+                              'https://raw.githubusercontent.com/gihan667/nutrition-app/7890658dc7809356875ac78b831fce93f52f105e/assets/icons/heart.svg'),
+                          onPressed: () {})
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
