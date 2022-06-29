@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, must_be_immutable
+
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
 import 'package:diet_suggestion_app/src/screens/signup/sign_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,9 @@ class _MyLoginState extends State<MyLogin> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 52, 52, 52),
         image: DecorationImage(
-            image: NetworkImage(
-                'https://raw.githubusercontent.com/resulcay/signup_page/master/assets/images/login.png'),
-            fit: BoxFit.cover),
+            image: AssetImage('assets/images/login.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -97,15 +98,13 @@ class _MyLoginState extends State<MyLogin> {
                     const SizedBox(
                       height: 40,
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
                     Visibility(
-                      visible: widget.label == 'Admin' ? false : true,
+                      visible: widget.label == 'Customer' ? true : false,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
+                              style: TextButton.styleFrom(primary: Colors.red),
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -119,7 +118,7 @@ class _MyLoginState extends State<MyLogin> {
                                 style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   fontSize: 18,
-                                  color: Color(0xff4c505b),
+                                  color: Colors.black,
                                 ),
                               ),
                             ),

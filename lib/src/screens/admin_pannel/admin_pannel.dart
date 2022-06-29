@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
 
+import 'package:diet_suggestion_app/src/model/item.dart';
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import '../../model/user.dart';
 
 class BasicInfoForm extends StatefulWidget {
   @override
@@ -11,14 +11,17 @@ class BasicInfoForm extends StatefulWidget {
 
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
-  Model model = Model(
-    weight: '',
-    height: '',
-    age: '',
-    gender: '',
-    disease: '',
-    registerDate: '',
-  );
+  Item model = Item(
+      id: 0,
+      name: '',
+      description: '',
+      image: '',
+      rating: 0.0,
+      ratingCount: 0,
+      price: 0.0,
+      color: 0,
+      vitamins: [],
+      ingrediants: []);
 
   @override
   Widget build(BuildContext context) {
@@ -62,33 +65,49 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                         alignment: Alignment.topCenter,
                         width: halfMediaWidth,
                         child: MyTextFormField(
-                          hintText: 'Weight',
+                          hintText: 'id',
                         ),
                       ),
                       Container(
                         alignment: Alignment.topCenter,
                         width: halfMediaWidth,
                         child: MyTextFormField(
-                          hintText: 'Height',
+                          hintText: 'name',
                         ),
                       ),
                     ],
                   ),
                 ),
                 MyTextFormField(
-                  hintText: 'Age',
+                  hintText: 'descrription',
                   // isEmail: true,
                 ),
                 MyTextFormField(
-                  hintText: 'Gender',
+                  hintText: 'image',
                   // isPassword: true,
                 ),
                 MyTextFormField(
-                  hintText: 'Disease',
+                  hintText: 'rating',
                   // isPassword: true,
                 ),
                 MyTextFormField(
-                  hintText: 'Register Date',
+                  hintText: 'ratingCount',
+                  // isPassword: true,
+                ),
+                MyTextFormField(
+                  hintText: 'price',
+                  // isPassword: true,
+                ),
+                MyTextFormField(
+                  hintText: 'color',
+                  // isPassword: true,
+                ),
+                MyTextFormField(
+                  hintText: 'vitamins',
+                  // isPassword: true,
+                ),
+                MyTextFormField(
+                  hintText: 'ingredients',
                   // isPassword: true,
                 ),
                 RaisedButton(
@@ -110,13 +129,12 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                     width: 90.0,
                     child: Center(
                       child: Text(
-                        'Submit',
+                        'Add Form',
                         style: TextStyle(
-                          fontSize: 25.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
+                            fontSize: 25.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ), 
                     ),
                   ),
                 ),
