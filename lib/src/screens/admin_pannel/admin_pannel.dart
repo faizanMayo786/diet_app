@@ -4,12 +4,12 @@ import 'package:diet_suggestion_app/src/model/item.dart';
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class BasicInfoForm extends StatefulWidget {
+class AdminPanel extends StatefulWidget {
   @override
-  _BasicInfoFormState createState() => _BasicInfoFormState();
+  _AdminPanelState createState() => _AdminPanelState();
 }
 
-class _BasicInfoFormState extends State<BasicInfoForm> {
+class _AdminPanelState extends State<AdminPanel> {
   final _formKey = GlobalKey<FormState>();
   Item model = Item(
       id: 0,
@@ -23,11 +23,35 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
       vitamins: [],
       ingrediants: []);
 
+  int index = 1;
+
   @override
   Widget build(BuildContext context) {
     final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
 
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color.fromARGB(255, 52, 52, 52),
+          currentIndex: index,
+          onTap: (value) {
+            setState(() {
+              value = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              label: 'add',
+              icon: Icon(
+                Icons.car_crash,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: 'query',
+              icon: Icon(
+                Icons.car_crash,
+              ),
+            )
+          ]),
       backgroundColor: const Color.fromARGB(255, 52, 52, 52),
       appBar: AppBar(
         title: const Text('Basic Information'),
@@ -134,7 +158,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                             fontSize: 25.0,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
-                      ), 
+                      ),
                     ),
                   ),
                 ),

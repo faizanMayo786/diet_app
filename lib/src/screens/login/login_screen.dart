@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
+import 'package:diet_suggestion_app/src/screens/admin_pannel/admin_pannel.dart';
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
 import 'package:diet_suggestion_app/src/screens/signup/sign_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -83,12 +84,22 @@ class _MyLoginState extends State<MyLogin> {
                           child: IconButton(
                             color: Colors.white,
                             onPressed: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) => HomeScreen()),
-                                  ),
-                                  (route) => false);
+                              if (widget.label == 'Customer') {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) => HomeScreen()),
+                                    ),
+                                    (route) => false);
+                              }
+                              if (widget.label == 'Admin') {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) => AdminPanel()),
+                                    ),
+                                    (route) => false);
+                              }
                             },
                             icon: const Icon(Icons.arrow_forward),
                           ),
