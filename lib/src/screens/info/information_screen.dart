@@ -3,7 +3,16 @@
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../model/user.dart';
+import '../../widget/drop_down_button.dart';
 
+Model model = Model(
+  weight: 'Weight',
+  height: 'Height',
+  age: 'Age',
+  gender: 'Gender',
+  disease: '',
+  registerDate: '',
+);
 class BasicInfoForm extends StatefulWidget {
   @override
   _BasicInfoFormState createState() => _BasicInfoFormState();
@@ -11,18 +20,143 @@ class BasicInfoForm extends StatefulWidget {
 
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
-  Model model = Model(
-    weight: '',
-    height: '',
-    age: '',
-    gender: '',
-    disease: '',
-    registerDate: '',
-  );
+  
 
+  List<DropdownMenuItem> ageItems = [
+    const DropdownMenuItem(
+      value: 'Age',
+      child: Text(
+        'Age',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    )
+  ];
+  List<DropdownMenuItem> weightItems = [
+    const DropdownMenuItem(
+      value: 'Weight',
+      child: Text(
+        'Weight',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    )
+  ];
+  List<DropdownMenuItem> heightItems = [
+    const DropdownMenuItem(
+      value: 'Height',
+      child: Text(
+        'Height',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    )
+  ];
+  List<DropdownMenuItem> genderItems = [
+    const DropdownMenuItem(
+      value: 'Gender',
+      child: Text(
+        'Gender',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    ),
+    const DropdownMenuItem(
+      value: 'Single',
+      child: Text(
+        'Male',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    ),
+    const DropdownMenuItem(
+      value: 'Female',
+      child: Text(
+        'Female',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    ),
+  ];
+  @override
+  void initState() {
+    super.initState();
+    ageItems.addAll(
+      List.generate(250, (index) => index.toString())
+          .map<DropdownMenuItem<String>>(
+        (String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          );
+        },
+      ).toList(),
+    );
+    weightItems.addAll(
+      List.generate(150, (index) => index.toString())
+          .map<DropdownMenuItem<String>>(
+        (String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          );
+        },
+      ).toList(),
+    );
+    heightItems.addAll(
+      List.generate(100, (index) => index.toString())
+          .map<DropdownMenuItem<String>>(
+        (String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          );
+        },
+      ).toList(),
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
+    // final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 52, 52, 52),
@@ -56,65 +190,83 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                 Container(
                   alignment: Alignment.topCenter,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
-                        alignment: Alignment.topCenter,
-                        width: halfMediaWidth,
-                        child: MyTextFormField(
-                          hintText: 'Weight',
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FormDropDownButton(
+                          label: model.weight,
+                          items: weightItems,
+                          valueController: model.weight,
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          suffix: 'kg',
+                          // isEmail: true,
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.topCenter,
-                        width: halfMediaWidth,
-                        child: MyTextFormField(
-                          hintText: 'Height',
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FormDropDownButton(
+                          label: model.height,
+                          items: heightItems,
+                          valueController: model.height,
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          suffix: 'cm',
+                          // isEmail: true,
                         ),
                       ),
                     ],
                   ),
                 ),
-                MyTextFormField(
-                  hintText: 'Age',
-                  // isEmail: true,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FormDropDownButton(
+                    label: model.age,
+                    items: ageItems,
+                    valueController: model.age,
+                    width: MediaQuery.of(context).size.width,
+                    suffix: '',
+                    // isEmail: true,
+                  ),
                 ),
-                MyTextFormField(
-                  hintText: 'Gender',
-                  // isPassword: true,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FormDropDownButton(
+                    label: model.gender,
+                    items: genderItems,
+                    valueController: model.gender,
+                    width: MediaQuery.of(context).size.width,
+                    suffix: '',
+                    // isEmail: true,
+                  ),
                 ),
-                MyTextFormField(
-                  hintText: 'Disease',
-                  // isPassword: true,
-                ),
-                MyTextFormField(
-                  hintText: 'Register Date',
-                  // isPassword: true,
-                ),
-                RaisedButton(
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
+              
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    // color: Colors.blueAccent,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
 
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) => HomeScreen()),
-                          ),
-                          (route) => false);
-                    }
-                  },
-                  child: const SizedBox(
-                    height: 50.0,
-                    width: 90.0,
-                    child: Center(
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) => HomeScreen()),
+                            ),
+                            (route) => false);
+                      }
+                    },
+                    child: const SizedBox(
+                      height: 50.0,
+                      width: 90.0,
+                      child: Center(
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal),
                         ),
                       ),
                     ),

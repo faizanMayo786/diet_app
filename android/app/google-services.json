@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "791842477377",
+    "project_id": "diet-app-222b3",
+    "storage_bucket": "diet-app-222b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791842477377:android:8acd8fc78ad9d0b9d4bdc0",
+        "android_client_info": {
+          "package_name": "com.example.diet_suggestion_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791842477377-ogdcgpitsel39silg8i1826mdlk7ujar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV3YqGzJBR5iH2o8M-XBgiLZubuDpc8Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791842477377-ogdcgpitsel39silg8i1826mdlk7ujar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
