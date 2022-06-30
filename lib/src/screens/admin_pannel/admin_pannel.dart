@@ -155,7 +155,7 @@ class _AdminPanelState extends State<AdminPanel> {
                       child: Text(
                         'Add Form',
                         style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 20.0,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),

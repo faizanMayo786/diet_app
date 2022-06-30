@@ -59,9 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               MyTextFormField(
-                hintText: 'Disease',
+                hintText: 'What disease do you have?',
                 onSaved: () {},
-              )
+              ),
+              MyTextFormField(
+                hintText: 'How much time do you have this disease?',
+                onSaved: () {},
+              ),
+              MyTextFormField(
+                hintText: 'What are the symptoms of this disease?',
+                onSaved: () {},
+              ),
+              MyTextFormField(
+                hintText: 'What food is prohibited?',
+                onSaved: () {},            ),
             ],
           ),
         ),
