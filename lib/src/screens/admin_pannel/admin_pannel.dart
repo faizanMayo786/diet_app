@@ -23,43 +23,18 @@ class _AdminPanelState extends State<AdminPanel> {
       vitamins: [],
       ingrediants: []);
 
-  int index = 1;
+  int _selectedIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 52, 52, 52),
-          currentIndex: index,
-          onTap: (value) {
-            setState(() {
-              value = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              label: 'add',
-              icon: Icon(
-                Icons.car_crash,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: 'query',
-              icon: Icon(
-                Icons.car_crash,
-              ),
-            )
-          ]),
-      backgroundColor: const Color.fromARGB(255, 52, 52, 52),
-      appBar: AppBar(
-        title: const Text('Basic Information'),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 52, 52, 52),
-      ),
-      body: Center(
+  List<String> label = ['Add Diet Item', 'Queries'];
+  List body() {
+    return [
+      Center(
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -80,58 +55,43 @@ class _AdminPanelState extends State<AdminPanel> {
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.topCenter,
-                        width: halfMediaWidth,
-                        child: MyTextFormField(
-                          hintText: 'id',
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.topCenter,
-                        width: halfMediaWidth,
-                        child: MyTextFormField(
-                          hintText: 'name',
-                        ),
-                      ),
-                    ],
-                  ),
+                MyTextFormField(
+                  hintText: 'Name',
+                ),
+
+                // MyTextFormField(
+                //   hintText: 'Image',// we dont need this image field we will add image picker instead try to add
+                //   // isPassword: true,
+                // ),
+                MyTextFormField(
+                  hintText: 'Rating',
+                  // isPassword: true,
+                ),
+                // MyTextFormField(
+                //   hintText: 'ratingCount',
+                //   // isPassword: true,
+                // ),
+                MyTextFormField(
+                  hintText: 'Price',
+                  // isPassword: true,
+                ),
+                // MyTextFormField(
+                //   hintText: 'color',
+                //   // isPassword: true,
+                // ), also wee  will try to add color picker
+                MyTextFormField(
+                  hintText: 'Description', //
+                  line: 3,
+                  // isEmail: true, // or ui me symmetry mean HCI concepts ka kheyal rkha kro yeh kro then baki dekhte
                 ),
                 MyTextFormField(
-                  hintText: 'descrription',
-                  // isEmail: true,
-                ),
-                MyTextFormField(
-                  hintText: 'image',
+                  hintText: 'Vitamins',
+                  line: 3,
                   // isPassword: true,
                 ),
                 MyTextFormField(
-                  hintText: 'rating',
-                  // isPassword: true,
-                ),
-                MyTextFormField(
-                  hintText: 'ratingCount',
-                  // isPassword: true,
-                ),
-                MyTextFormField(
-                  hintText: 'price',
-                  // isPassword: true,
-                ),
-                MyTextFormField(
-                  hintText: 'color',
-                  // isPassword: true,
-                ),
-                MyTextFormField(
-                  hintText: 'vitamins',
-                  // isPassword: true,
-                ),
-                MyTextFormField(
-                  hintText: 'ingredients',
+                  hintText: 'Ingredients',
+                  line: 3,
                   // isPassword: true,
                 ),
                 RaisedButton(
@@ -167,6 +127,39 @@ class _AdminPanelState extends State<AdminPanel> {
           ),
         ),
       ),
+      Container(
+        child: Center(child: Text('Query')),
+      )
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromARGB(255, 52, 52, 52),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Add',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Query',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+      backgroundColor: const Color.fromARGB(255, 52, 52, 52),
+      appBar: AppBar(
+        title: Text(label[_selectedIndex]),
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 52, 52, 52),
+      ),
+      body: body()[_selectedIndex],
     );
   }
 }
@@ -175,11 +168,12 @@ class MyTextFormField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
   final bool isEmail;
-
+  final int line;
   MyTextFormField({
     required this.hintText,
     this.isPassword = false,
     this.isEmail = false,
+    this.line = 1,
   });
 
   @override
@@ -187,6 +181,7 @@ class MyTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        maxLines: line,
         decoration: InputDecoration(
           hintText: hintText,
           contentPadding: const EdgeInsets.all(15.0),
@@ -195,7 +190,7 @@ class MyTextFormField extends StatelessWidget {
           fillColor: Colors.grey[200],
         ),
         obscureText: isPassword ? true : false,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        keyboardType: line > 1 ? TextInputType.multiline : TextInputType.text,
       ),
     );
   }
