@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
 
+import 'dart:io';
+
 import 'package:diet_suggestion_app/src/model/item.dart';
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AdminPanel extends StatefulWidget {
   @override
@@ -10,6 +14,7 @@ class AdminPanel extends StatefulWidget {
 }
 
 class _AdminPanelState extends State<AdminPanel> {
+  File? imageFile;
   final _formKey = GlobalKey<FormState>();
   Item model = Item(
       id: 0,
@@ -26,9 +31,11 @@ class _AdminPanelState extends State<AdminPanel> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(
+      () {
+        _selectedIndex = index;
+      },
+    );
   }
 
   List<String> label = ['Add Diet Item', 'Queries'];
@@ -58,14 +65,38 @@ class _AdminPanelState extends State<AdminPanel> {
                 MyTextFormField(
                   hintText: 'Name',
                 ),
-
-                // MyTextFormField(
-                //   hintText: 'Image',// we dont need this image field we will add image picker instead try to add
-                //   // isPassword: true,
-                // ),
+                SizedBox(
+                  width: 300.0,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _getFromGallery();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                    ),
+                    child: const Text(
+                      "Pick Image From Gallery",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 300.0,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _getFromCamera();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                    ),
+                    child: const Text(
+                      "Pick Image From Camera",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ),
                 MyTextFormField(
                   hintText: 'Rating',
-                  // isPassword: true,
                 ),
                 // MyTextFormField(
                 //   hintText: 'ratingCount',
@@ -127,10 +158,42 @@ class _AdminPanelState extends State<AdminPanel> {
           ),
         ),
       ),
-      Container(
-        child: Center(child: Text('Query')),
-      )
+      const SizedBox(
+        child: Center(
+          child: Text('Query'),
+        ),
+      ),
     ];
+  }
+
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(
+        () {
+          imageFile = File(pickedFile.path);
+        },
+      );
+    }
+  }
+
+  _getFromCamera() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(
+        () {
+          imageFile = File(pickedFile.path);
+        },
+      );
+    }
   }
 
   @override

@@ -21,7 +21,6 @@ class BasicInfoForm extends StatefulWidget {
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
   
-// thora sa goor krogi to smj ajaye gi ya google se dekhlo dropdown ka use lekin code yehi wala krna isme e changes krni  nai hota to btana i will tell
   List<DropdownMenuItem> ageItems = [
     const DropdownMenuItem(
       value: 'Age',
