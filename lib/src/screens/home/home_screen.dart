@@ -1,10 +1,12 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../model/item.dart';
 import '../../model/user.dart';
 import '../../widget/item_card.dart';
 import '../../widget/text_form_field.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen();
@@ -26,31 +28,47 @@ class _HomeScreenState extends State<HomeScreen> {
   List body = [
     Container(
       padding: const EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              'Find the Best\nHealth for You',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700),
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+    
+             CircularPercentIndicator(
+              radius: 150.0,
+              lineWidth: 13.0,
+              animation: true,
+              percent: 0.7,
+              center:  const Text(
+                "70.0%",
+                style:
+                     TextStyle(fontWeight: FontWeight.bold, fontSize: 60.0,color: Colors.white),
+              ),
+              circularStrokeCap: CircularStrokeCap.round,
+              progressColor: Colors.orange,
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(0),
-              itemCount: demoItems.length,
-              // physics: sc(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return ItemCard(item: demoItems[index], index: index);
-              },
-            ),
-          ),
-        ],
+            // const Padding(
+            //   padding: EdgeInsets.all(8.0),
+            //   child: Text(
+            //     'Find the Best\nHealth for You',
+            //     style: TextStyle(
+            //         color: Colors.white,
+            //         fontSize: 24,
+            //         fontWeight: FontWeight.w700),
+            //   ),
+            // ),
+            // Expanded(
+            //   child: ListView.builder(
+            //     padding: const EdgeInsets.all(0),
+            //     itemCount: demoItems.length,
+            //     // physics: sc(),
+            //     shrinkWrap: true,
+            //     itemBuilder: (context, index) {
+            //       return ItemCard(item: demoItems[index], index: index);
+            //     },
+            //   ),
+            // ),
+          ],
+        ),
       ),
     ),
     Container(

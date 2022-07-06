@@ -21,6 +21,7 @@ dependencies:
   image_picker: ^0.8.5+3
   palette_generator: ^0.3.3+1
   filter_list: ^1.0.2
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
