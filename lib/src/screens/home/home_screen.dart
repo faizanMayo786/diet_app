@@ -27,46 +27,78 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> label = ['Diet Plans', 'Account'];
   List body = [
     Container(
+      //
       padding: const EdgeInsets.all(10.0),
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-    
-             CircularPercentIndicator(
-              radius: 150.0,
-              lineWidth: 13.0,
+            Text(
+              'Progress',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+                color: Colors.white,
+              ),
+            ),
+            CircularPercentIndicator(
+              radius: 100.0,
+              lineWidth: 8.0,
               animation: true,
-              percent: 0.7,
-              center:  const Text(
+              percent: 0.73,
+              center: const Text(
                 "70.0%",
-                style:
-                     TextStyle(fontWeight: FontWeight.bold, fontSize: 60.0,color: Colors.white),
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 48.0,
+                  color: Colors.white,
+                ),
               ),
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: Colors.orange,
             ),
-            // const Padding(
-            //   padding: EdgeInsets.all(8.0),
-            //   child: Text(
-            //     'Find the Best\nHealth for You',
-            //     style: TextStyle(
-            //         color: Colors.white,
-            //         fontSize: 24,
-            //         fontWeight: FontWeight.w700),
-            //   ),
-            // ),
-            // Expanded(
-            //   child: ListView.builder(
-            //     padding: const EdgeInsets.all(0),
-            //     itemCount: demoItems.length,
-            //     // physics: sc(),
-            //     shrinkWrap: true,
-            //     itemBuilder: (context, index) {
-            //       return ItemCard(item: demoItems[index], index: index);
-            //     },
-            //   ),
-            // ),
+            Column(
+              children: [
+
+                SizedBox(
+                  width: 180.0,
+                  height: 40.0,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orange,
+                    ),
+                    child: Text(
+                      "Update",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 20.0,
+                          color: Colors.white),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                SizedBox(
+                  width: 180.0,
+                  height: 40.0,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orange,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Generate Meal Plan",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 16.0,
+                            color: Colors.white),
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -90,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               MyTextFormField(
                 hintText: 'What food is prohibited?',
-                onSaved: () {},            ),
+                onSaved: () {},
+              ),
             ],
           ),
         ),
@@ -100,6 +133,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.orange,
+          child: Icon(Icons.chat),
+          onPressed: () {},
+        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 52, 52, 52),
           items: const <BottomNavigationBarItem>[
@@ -115,9 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
-        ),
+        ), 
         backgroundColor: const Color.fromARGB(255, 52, 52, 52),
-        appBar: AppBar(
+        appBar: AppBar( leading: SizedBox(), 
+        actions: [Icon(Icons.logout_rounded)],
           centerTitle: true,
           title: Text(label[_selectedIndex]),
           backgroundColor: const Color.fromARGB(255, 52, 52, 52),
