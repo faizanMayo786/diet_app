@@ -21,7 +21,6 @@ class BasicInfoForm extends StatefulWidget {
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
   
-
   List<DropdownMenuItem> ageItems = [
     const DropdownMenuItem(
       value: 'Age',

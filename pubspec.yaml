@@ -18,6 +18,10 @@ dependencies:
   firebase_core: ^1.18.0
   firebase_auth: ^3.3.20
   cloud_firestore: ^3.1.18
+  image_picker: ^0.8.5+3
+  palette_generator: ^0.3.3+1
+  filter_list: ^1.0.2
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:

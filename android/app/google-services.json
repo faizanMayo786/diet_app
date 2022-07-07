@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "791842477377",
-    "project_id": "diet-app-222b3",
-    "storage_bucket": "diet-app-222b3.appspot.com"
+    "project_number": "144829256111",
+    "project_id": "diet-plan-app",
+    "storage_bucket": "diet-plan-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:791842477377:android:8acd8fc78ad9d0b9d4bdc0",
+        "mobilesdk_app_id": "1:144829256111:android:85c164d0e2017354775f5a",
         "android_client_info": {
           "package_name": "com.example.diet_suggestion_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "791842477377-ogdcgpitsel39silg8i1826mdlk7ujar.apps.googleusercontent.com",
+          "client_id": "144829256111-5ji75cr6checggr56f6m469hk7kgb5ap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diet_suggestion_app",
+            "certificate_hash": "797c71cdf09b57ba7a8447ae0970f33caf2581c6"
+          }
+        },
+        {
+          "client_id": "144829256111-g2vbt9l7cjn3s4jb2bija5nt7slsjk5r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAV3YqGzJBR5iH2o8M-XBgiLZubuDpc8Q4"
+          "current_key": "AIzaSyAdtKJYqJbw3WlQYJxH9ff8dYnddWcQJbQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "791842477377-ogdcgpitsel39silg8i1826mdlk7ujar.apps.googleusercontent.com",
+              "client_id": "144829256111-g2vbt9l7cjn3s4jb2bija5nt7slsjk5r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
