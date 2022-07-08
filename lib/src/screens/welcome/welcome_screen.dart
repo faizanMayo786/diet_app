@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:diet_suggestion_app/src/screens/login/login_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/util/logo_widget.dart';
@@ -11,7 +12,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 52, 52, 52),
       body: Center(
         child: Container(
           // height: 700,
@@ -39,21 +39,21 @@ class WelcomeScreen extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.normal,
-                          color: Colors.white),
+                          color: Colors.black),
                     ),
                     Text(
                       "One must eat to live, not live to eat.",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w300,
-                          color: Colors.white),
+                          color: Colors.black),
                     ),
                   ],
                 ),
               ),
               Column(
                 children: [
-                  !Platform.isAndroid
+                  kIsWeb
                       ? Padding(
                           padding: const EdgeInsets.only(
                             left: 25,
@@ -68,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
                                 Expanded(
                                   child: TextButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.white,
+                                      primary: Colors.orange,
                                     ),
                                     onPressed: () async {
                                       Navigator.push(
