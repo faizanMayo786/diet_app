@@ -12,7 +12,7 @@ void main() async {
     await Firebase.initializeApp();
   } else {
     await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
         apiKey: "AIzaSyCV4-iYZkzV2JmKQlAWYF5p34QnLDBCaBA",
         authDomain: "diet-plan-app.firebaseapp.com",
         projectId: "diet-plan-app",
@@ -33,11 +33,11 @@ class DietApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          colorScheme: ColorScheme.light(
+          colorScheme: const ColorScheme.light(
         secondary: Colors.purple,
         primary: Colors.orange,
       )),
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

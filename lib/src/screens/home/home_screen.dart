@@ -2,6 +2,7 @@
 
 import 'package:diet_suggestion_app/src/screens/message/message_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../model/item.dart';
@@ -95,7 +96,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      print(await FirebaseAuth.instance.currentUser!.uid);
+                    },
                   ),
                 ),
               ],
@@ -148,7 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: Text('Chat'),
                     centerTitle: true,
                   ),
-                  body: MessageScreen(),
+                  body: MessageScreen(
+                    user: FirebaseAuth.instance.currentUser!.uid,
+                  ),
                 ),
               ),
             );

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:diet_suggestion_app/src/model/item.dart';
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
+import 'package:diet_suggestion_app/src/screens/message/inbox_screen.dart';
 import 'package:diet_suggestion_app/src/screens/message/message_screen.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,7 +37,7 @@ class _AdminPanelState extends State<AdminPanel> {
       Center(
         child: Text('Upload Diet Plan'),
       ),
-      MessageScreen(),
+      InboxScreen()
     ];
   }
 

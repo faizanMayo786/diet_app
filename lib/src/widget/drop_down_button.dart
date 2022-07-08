@@ -15,7 +15,7 @@ class FormDropDownButton extends StatefulWidget {
   }) : super(key: key);
   final String label;
   String valueController;
-  final List<DropdownMenuItem> items;
+  final List<DropdownMenuItem<String>> items;
   final double width;
   final String suffix;
   @override
@@ -27,7 +27,7 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      child: DropdownButtonFormField(
+      child: DropdownButtonFormField<String>(
         // controller: controller,
         value: widget.valueController.toString(),
         decoration: InputDecoration(
@@ -60,21 +60,31 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
           fontWeight: FontWeight.normal,
           color: Colors.black,
         ),
-
+        validator: (value) {
+          if (widget.valueController.toString() == 'Weight')
+            return 'Choose Weight';
+          if (widget.valueController.toString() == 'Height')
+            return 'Choose Height';
+          if (widget.valueController.toString() == 'Age') return 'Choose Age';
+          if (widget.valueController.toString() == 'Gender')
+            return 'Choose Gender';
+          return null;
+        },
         menuMaxHeight: 200.0,
         onChanged: (dynamic newValue) {
-          setState(() {
-            setState(() {});
-            widget.valueController = newValue;
+          setState(
+            () {
+              setState(() {});
+              widget.valueController = newValue;
 
-            if (widget.label == 'Weight') model.weight = newValue;
-            if (widget.label == 'Height') model.height = newValue;
-            if (widget.label == 'age') model.age = newValue;
-            if (widget.label == 'gender') model.gender = newValue;
+              if (widget.label == 'Weight') model.weight = newValue;
+              if (widget.label == 'Height') model.height = newValue;
+              if (widget.label == 'Age') model.age = newValue;
+              if (widget.label == 'Gender') model.gender = newValue;
             },
           );
         },
-        items: widget.items,
+        items: widget.items as List<DropdownMenuItem<String>>,
       ),
     );
   }

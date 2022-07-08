@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
+import 'package:diet_suggestion_app/src/screens/login/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../model/user.dart';
 import '../../widget/drop_down_button.dart';
@@ -13,16 +16,23 @@ Model model = Model(
   disease: '',
   registerDate: '',
 );
+
 class BasicInfoForm extends StatefulWidget {
+  BasicInfoForm({
+    required this.username,
+    required this.email,
+    required this.password,
+  });
+  String email, username, password;
   @override
   _BasicInfoFormState createState() => _BasicInfoFormState();
 }
 
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
-  
-  List<DropdownMenuItem> ageItems = [
-    const DropdownMenuItem(
+
+  List<DropdownMenuItem<String>> ageItems = [
+    const DropdownMenuItem<String>(
       value: 'Age',
       child: Text(
         'Age',
@@ -34,8 +44,8 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
       ),
     )
   ];
-  List<DropdownMenuItem> weightItems = [
-    const DropdownMenuItem(
+  List<DropdownMenuItem<String>> weightItems = [
+    const DropdownMenuItem<String>(
       value: 'Weight',
       child: Text(
         'Weight',
@@ -47,8 +57,8 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
       ),
     )
   ];
-  List<DropdownMenuItem> heightItems = [
-    const DropdownMenuItem(
+  List<DropdownMenuItem<String>> heightItems = [
+    const DropdownMenuItem<String>(
       value: 'Height',
       child: Text(
         'Height',
@@ -60,8 +70,8 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
       ),
     )
   ];
-  List<DropdownMenuItem> genderItems = [
-    const DropdownMenuItem(
+  List<DropdownMenuItem<String>> genderItems = [
+    const DropdownMenuItem<String>(
       value: 'Gender',
       child: Text(
         'Gender',
@@ -72,7 +82,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
         ),
       ),
     ),
-    const DropdownMenuItem(
+    const DropdownMenuItem<String>(
       value: 'Single',
       child: Text(
         'Male',
@@ -83,7 +93,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
         ),
       ),
     ),
-    const DropdownMenuItem(
+    const DropdownMenuItem<String>(
       value: 'Female',
       child: Text(
         'Female',
@@ -153,17 +163,15 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
       ).toList(),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     // final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 52, 52, 52),
       appBar: AppBar(
         title: const Text('Basic Information'),
-        elevation: 0,
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 52, 52, 52),
       ),
       body: Center(
         child: Form(
@@ -239,21 +247,35 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                     // isEmail: true,
                   ),
                 ),
-              
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     // color: Colors.blueAccent,
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                                email: widget.email, password: widget.password);
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .set({
+                          'username': widget.username,
+                          'userId': FirebaseAuth.instance.currentUser!.uid,
+                          'weight': model.weight,
+                          'height': model.height,
+                          'age': model.age,
+                          'gender': model.gender,
+                          'customer': 'yes',
+                        });
 
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) => HomeScreen()),
-                            ),
-                            (route) => false);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyLogin(label: 'Customer'),
+                          ),
+                        );
                       }
                     },
                     child: const SizedBox(

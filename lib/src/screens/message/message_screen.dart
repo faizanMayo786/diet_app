@@ -7,8 +7,8 @@ import '../../widget/message.dart';
 import '../../widget/new_message.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({Key? key}) : super(key: key);
-
+  MessageScreen({Key? key, required this.user}) : super(key: key);
+  String user;
   @override
   State<MessageScreen> createState() => _MessageScreenState();
 }
@@ -19,8 +19,8 @@ class _MessageScreenState extends State<MessageScreen> {
     return Container(
       child: Column(
         children: [
-          Expanded(child: Messages()),
-          NewMessage(),
+          Expanded(child: Messages(user: widget.user)),
+          NewMessage(user:widget. user),
         ],
       ),
     );

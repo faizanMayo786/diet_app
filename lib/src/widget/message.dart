@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  var user;
+  Messages({required this.user});
+  String user;
   @protected
   @mustCallSuper
   @override
@@ -14,8 +15,6 @@ class Messages extends StatelessWidget {
   }
 
   getUid() async {
-    user = FirebaseAuth.instance.currentUser!.uid;
-    print('User :' + FirebaseAuth.instance.currentUser!.uid);
   }
 
   @override
@@ -23,7 +22,7 @@ class Messages extends StatelessWidget {
     getUid();
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection('chat')
+          .collection('chat/$user/message/')
           .orderBy(
             'createdAt',
             descending: true,
@@ -48,7 +47,7 @@ class Messages extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
