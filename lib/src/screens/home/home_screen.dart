@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import
 
+import 'package:diet_suggestion_app/src/screens/message/message_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../model/item.dart';
@@ -36,9 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               'Progress',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.normal,
                 fontSize: 24.0,
-                color: Colors.white,
               ),
             ),
             CircularPercentIndicator(
@@ -51,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                   fontSize: 48.0,
-                  color: Colors.white,
                 ),
               ),
               circularStrokeCap: CircularStrokeCap.round,
@@ -59,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Column(
               children: [
-
                 SizedBox(
                   width: 180.0,
                   height: 40.0,
@@ -71,13 +70,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Update",
                       style: TextStyle(
                           fontWeight: FontWeight.w300,
-                          fontSize: 20.0,
+                          fontSize: 16.0,
                           color: Colors.white),
                     ),
                     onPressed: () {},
                   ),
                 ),
-                SizedBox(height: 10.0,),
+                SizedBox(
+                  height: 10.0,
+                ),
                 SizedBox(
                   width: 180.0,
                   height: 40.0,
@@ -135,11 +136,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return (Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange,
-          child: Icon(Icons.chat),
-          onPressed: () {},
+          child: Icon(
+            Icons.chat,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => Scaffold(
+                  appBar: AppBar(
+                    title: Text('Chat'),
+                    centerTitle: true,
+                  ),
+                  body: MessageScreen(),
+                ),
+              ),
+            );
+          },
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color.fromARGB(255, 52, 52, 52),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -153,14 +168,43 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
-        ), 
-        backgroundColor: const Color.fromARGB(255, 52, 52, 52),
-        appBar: AppBar( leading: SizedBox(), 
-        actions: [Icon(Icons.logout_rounded)],
+        ),
+        appBar: AppBar(
+          leading: SizedBox(),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Confirm"),
+                    content: const Text('You want to Sign-Out?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+
+                          await FirebaseAuth.instance.signOut();
+                        },
+                        child: const Text('Yes'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('No'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.logout,
+              ),
+            )
+          ],
           centerTitle: true,
           title: Text(label[_selectedIndex]),
-          backgroundColor: const Color.fromARGB(255, 52, 52, 52),
-          elevation: 0,
         ),
         body: body[_selectedIndex]));
   }

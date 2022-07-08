@@ -35,6 +35,7 @@ class _MyLoginState extends State<MyLogin> {
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasData) {
+                if (widget.label == 'Admin') return AdminPanel();
                 return HomeScreen();
               }
               return Stack(
@@ -136,13 +137,12 @@ class _MyLoginState extends State<MyLogin> {
                                         //     (route) => false);
                                       }
                                       if (widget.label == 'Admin') {
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: ((context) =>
-                                                  AdminPanel()),
-                                            ),
-                                            (route) => false);
+                                        if (_formKey.currentState!.validate()) {
+                                          FirebaseAuth.instance
+                                              .signInWithEmailAndPassword(
+                                                  email: email, password: pass);
+                                        }
+                                      
                                       }
                                     },
                                     icon: const Icon(Icons.arrow_forward),
