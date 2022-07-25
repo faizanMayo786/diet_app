@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -22,8 +23,14 @@ class _NewMessageState extends State<NewMessage> {
   Future<void> _sendMessage() async {
     FocusScope.of(context).unfocus();
     final user = FirebaseAuth.instance.currentUser!.uid;
-    final username =
-        await FirebaseFirestore.instance.collection('admin').doc(user).get();
+    final username;
+    if (kIsWeb) {
+      username =
+          await FirebaseFirestore.instance.collection('admin').doc(user).get();
+    } else {
+      username =
+          await FirebaseFirestore.instance.collection('users').doc(user).get();
+    }
     FirebaseFirestore.instance.collection('chat/${widget.user}/message/').add(
       {
         'text': _enteredMessage,
@@ -49,7 +56,7 @@ class _NewMessageState extends State<NewMessage> {
               autocorrect: true,
               enableSuggestions: true,
               decoration: const InputDecoration(
-                enabledBorder:  UnderlineInputBorder(
+                enabledBorder: UnderlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
                 labelText: 'Send a message...',
