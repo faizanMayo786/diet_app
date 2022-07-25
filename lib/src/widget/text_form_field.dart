@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
 
@@ -7,10 +7,11 @@ class MyTextFormField extends StatelessWidget {
   final dynamic onSaved;
 
   MyTextFormField({
+    Key? key,
     required this.hintText,
     required this.onSaved,
     required this.controller,
-  });
+  }) : super(key: key);
 
   TextEditingController controller;
   @override
@@ -21,14 +22,16 @@ class MyTextFormField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.black),
+          hintStyle: const TextStyle(color: Colors.black),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
           border: InputBorder.none,
           filled: true,
           fillColor: Colors.grey[100],
         ),
-        validator: (value) {},
+        validator: (value) {
+          return null;
+        },
         keyboardType: TextInputType.text,
       ),
     );

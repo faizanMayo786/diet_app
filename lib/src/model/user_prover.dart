@@ -1,4 +1,4 @@
-import 'package:diet_suggestion_app/src/model/user.dart';
+import 'user.dart';
 
 Model model = Model(
   weight: 'Weight',

@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_key_in_widget_constructors, overridden_fields
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,9 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMe;
+  @override
   final Key key;
   final String username;
-  MessageBubble(
+  const MessageBubble(
     this.message,
     this.isMe,
     this.username, {
@@ -32,9 +33,9 @@ class MessageBubble extends StatelessWidget {
                   topLeft: const Radius.circular(12),
                   topRight: const Radius.circular(12),
                   bottomLeft:
-                      !isMe ? const Radius.circular(0) : Radius.circular(12),
+                      !isMe ? const Radius.circular(0) : const Radius.circular(12),
                   bottomRight:
-                      isMe ? const Radius.circular(0) : Radius.circular(12),
+                      isMe ? const Radius.circular(0) : const Radius.circular(12),
                 ),
               ),
               width: 140,

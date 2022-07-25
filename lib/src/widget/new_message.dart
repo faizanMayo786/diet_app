@@ -23,7 +23,7 @@ class _NewMessageState extends State<NewMessage> {
   Future<void> _sendMessage() async {
     FocusScope.of(context).unfocus();
     final user = FirebaseAuth.instance.currentUser!.uid;
-    final username;
+    final DocumentSnapshot<Map<String, dynamic>> username;
     if (kIsWeb) {
       username =
           await FirebaseFirestore.instance.collection('admin').doc(user).get();

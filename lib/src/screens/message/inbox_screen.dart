@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diet_suggestion_app/src/screens/message/message_screen.dart';
+import 'message_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -37,8 +37,7 @@ class _InboxScreenState extends State<InboxScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: () {
-                            print(snapshot.data!.docs[index]['userId']
-                                .toString());
+                           
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -117,7 +116,7 @@ class _InboxScreenState extends State<InboxScreen> {
                         ),
                       ),
                     )
-                  : const Visibility(visible: false, child: const SizedBox());
+                  : const Visibility(visible: false, child: SizedBox());
             },
           );
         } else {

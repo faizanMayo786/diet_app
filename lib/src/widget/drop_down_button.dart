@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_colors.dart';
 import '../model/user_prover.dart';
 
 // ignore: must_be_immutable
@@ -84,7 +83,6 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
 
               if (widget.label == 'Weight') model.weight = newValue;
               if (widget.label == 'Height') model.height = newValue;
-              print(model.age);
               if (widget.label == 'Age') {
                 model.age = newValue;
               }

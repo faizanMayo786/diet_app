@@ -1,9 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable, use_build_context_synchronously, unused_catch_clause
 
-import '/core/constants/constants.dart';
-import '/src/screens/signup/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '/core/constants/constants.dart';
+import '/src/screens/signup/sign_up_screen.dart';
 
 class MyLogin extends StatefulWidget {
   MyLogin({Key? key, required this.label}) : super(key: key);

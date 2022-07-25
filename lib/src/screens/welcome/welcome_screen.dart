@@ -1,6 +1,5 @@
-import 'dart:io';
 
-import 'package:diet_suggestion_app/src/screens/login/login_screen.dart';
+import '../login/login_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           // height: 700,
           width: MediaQuery.of(context).size.height,
           child: Column(
