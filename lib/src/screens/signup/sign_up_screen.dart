@@ -166,13 +166,13 @@ class _MyRegisterState extends State<MyRegister> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((context) =>
-                                      MyLogin(label: 'Customer')),
-                                ),
-                              );
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) =>
+                                        MyLogin(label: 'Customer')),
+                                  ),
+                                  ((route) => false));
                             },
                             child: const Text(
                               'Login',

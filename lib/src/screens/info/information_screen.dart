@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
-import 'package:diet_suggestion_app/src/screens/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '/src/screens/home/home_screen.dart';
+import '../../../core/constants/constants.dart';
 import '../../model/user.dart';
 import '../../widget/drop_down_button.dart';
 
@@ -23,7 +23,7 @@ class BasicInfoForm extends StatefulWidget {
     required this.email,
     required this.password,
   });
-  String email, username, password;
+  final String email, username, password;
   @override
   _BasicInfoFormState createState() => _BasicInfoFormState();
 }
@@ -31,80 +31,6 @@ class BasicInfoForm extends StatefulWidget {
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
 
-  List<DropdownMenuItem<String>> ageItems = [
-    const DropdownMenuItem<String>(
-      value: 'Age',
-      child: Text(
-        'Age',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    )
-  ];
-  List<DropdownMenuItem<String>> weightItems = [
-    const DropdownMenuItem<String>(
-      value: 'Weight',
-      child: Text(
-        'Weight',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    )
-  ];
-  List<DropdownMenuItem<String>> heightItems = [
-    const DropdownMenuItem<String>(
-      value: 'Height',
-      child: Text(
-        'Height',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    )
-  ];
-  List<DropdownMenuItem<String>> genderItems = [
-    const DropdownMenuItem<String>(
-      value: 'Gender',
-      child: Text(
-        'Gender',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    ),
-    const DropdownMenuItem<String>(
-      value: 'Single',
-      child: Text(
-        'Male',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    ),
-    const DropdownMenuItem<String>(
-      value: 'Female',
-      child: Text(
-        'Female',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    ),
-  ];
   @override
   void initState() {
     super.initState();
@@ -254,32 +180,38 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: widget.email, password: widget.password);
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .set({
-                          'username': widget.username,
-                          'userId': FirebaseAuth.instance.currentUser!.uid,
-                          'weight': model.weight,
-                          'height': model.height,
-                          'age': model.age,
-                          'gender': model.gender,
-                          'customer': 'yes',
-                        });
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: widget.email,
+                                  password: widget.password);
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .set({
+                            'username': widget.username,
+                            'userId': FirebaseAuth.instance.currentUser!.uid,
+                            'weight': model.weight,
+                            'height': model.height,
+                            'age': model.age,
+                            'gender': model.gender,
+                            'customer': 'yes',
+                          });
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MyLogin(label: 'Customer'),
-                          ),
-                        );
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ),
+                            (route) => false,
+                          );
+                        } on Exception catch (e) {
+                          // TODO
+                        }
                       }
                     },
                     child: const SizedBox(
-                      height: 50.0,
+                      height: 40.0,
                       width: 90.0,
                       child: Center(
                         child: Text(
