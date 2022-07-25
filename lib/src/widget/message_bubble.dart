@@ -25,7 +25,7 @@ class MessageBubble extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: isMe
+                color: !isMe
                     ? Colors.grey[300]
                     : Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.only(
@@ -54,7 +54,7 @@ class MessageBubble extends StatelessWidget {
                     username,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: isMe
+                      color: !isMe
                           ? Colors.black
                           : Theme.of(context).accentTextTheme.bodyText1!.color,
                     ),
@@ -62,7 +62,7 @@ class MessageBubble extends StatelessWidget {
                   Text(
                     message,
                     style: TextStyle(
-                        color: isMe
+                        color: !isMe
                             ? Colors.black
                             : Theme.of(context)
                                 .accentTextTheme
@@ -80,9 +80,9 @@ class MessageBubble extends StatelessWidget {
           left: isMe ? null : 120,
           right: isMe ? 120 : null,
           child: CircleAvatar(
-            backgroundColor: isMe
+            backgroundColor: !isMe
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.secondary,
+                : Colors.grey[300],
             child: SvgPicture.asset('assets/icons/profile.svg'),
           ),
         ),

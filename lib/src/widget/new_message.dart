@@ -23,7 +23,7 @@ class _NewMessageState extends State<NewMessage> {
     FocusScope.of(context).unfocus();
     final user = FirebaseAuth.instance.currentUser!.uid;
     final username =
-        await FirebaseFirestore.instance.collection('users').doc(user).get();
+        await FirebaseFirestore.instance.collection('admin').doc(user).get();
     FirebaseFirestore.instance.collection('chat/${widget.user}/message/').add(
       {
         'text': _enteredMessage,

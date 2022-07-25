@@ -37,19 +37,22 @@ class _InboxScreenState extends State<InboxScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: () {
+                            print(snapshot.data!.docs[index]['userId']
+                                .toString());
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: ((context) => Scaffold(
-                                    appBar: AppBar(
-                                      title: Text(snapshot
-                                          .data!.docs[index]['username']
-                                          .toString()
-                                          .toUpperCase()),
-                                    ),
-                                    body: MessageScreen(
-                                        user: snapshot.data!.docs[index]
-                                            ['userId']))),
+                                builder: (context) => Scaffold(
+                                  appBar: AppBar(
+                                    title: Text(snapshot
+                                        .data!.docs[index]['username']
+                                        .toString()
+                                        .toUpperCase()),
+                                  ),
+                                  body: MessageScreen(
+                                    user: snapshot.data!.docs[index]['userId'],
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -66,9 +69,7 @@ class _InboxScreenState extends State<InboxScreen> {
                                   Container(
                                     width: 80,
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
+                                      color: Colors.grey[300],
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: ClipRRect(

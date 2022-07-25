@@ -1,3 +1,5 @@
+// ignore_for_file: override_on_non_overriding_member, must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  Messages({required this.user});
+  Messages({Key? key, required this.user}) : super(key: key);
   String user;
   @protected
   @mustCallSuper
@@ -14,8 +16,7 @@ class Messages extends StatelessWidget {
     getUid();
   }
 
-  getUid() async {
-  }
+  getUid() async {}
 
   @override
   Widget build(BuildContext context) {

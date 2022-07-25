@@ -53,7 +53,7 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
 
         icon: Icon(
           Icons.keyboard_arrow_down_rounded,
-          color: AppColor.themePrimary,
+          color: Theme.of(context).colorScheme.primary,
         ),
         elevation: 16,
         style: const TextStyle(
