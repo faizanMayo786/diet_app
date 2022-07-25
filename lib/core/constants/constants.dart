@@ -95,7 +95,7 @@ List<DropdownMenuItem<String>> genderItems = [
     ),
   ),
   const DropdownMenuItem<String>(
-    value: 'Single',
+    value: 'Male',
     child: Text(
       'Male',
       style: TextStyle(

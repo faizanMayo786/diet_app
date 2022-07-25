@@ -21,10 +21,12 @@ class MyTextFormField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: const EdgeInsets.all(15.0),
+          hintStyle: TextStyle(color: Colors.black),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
           border: InputBorder.none,
           filled: true,
-          fillColor: Colors.grey[200],
+          fillColor: Colors.grey[100],
         ),
         validator: (value) {},
         keyboardType: TextInputType.text,

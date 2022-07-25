@@ -1,17 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/constants.dart';
 import '../../model/user.dart';
+import '../../model/user_prover.dart';
 import '../../widget/drop_down_button.dart';
-
-Model model = Model(
-  weight: 'Weight',
-  height: 'Height',
-  age: 'Age',
-  gender: 'Gender',
-  disease: '',
-  registerDate: '',
-);
+import '../../widget/text_form_field.dart';
 
 class InformationEditScreen extends StatefulWidget {
   const InformationEditScreen({Key? key}) : super(key: key);
@@ -22,10 +17,16 @@ class InformationEditScreen extends StatefulWidget {
 
 class _InformationEditScreenState extends State<InformationEditScreen> {
   final _formKey = GlobalKey<FormState>();
-
+  TextEditingController nameController = TextEditingController();
   @override
   void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
     super.initState();
+
+    firebaseData();
+  }
+
+  firebaseData() async {
     ageItems.addAll(
       List.generate(250, (index) => index.toString())
           .map<DropdownMenuItem<String>>(
@@ -63,7 +64,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
       ).toList(),
     );
     heightItems.addAll(
-      List.generate(100, (index) => index.toString())
+      List.generate(250, (index) => index.toString())
           .map<DropdownMenuItem<String>>(
         (String value) {
           return DropdownMenuItem<String>(
@@ -80,14 +81,122 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
         },
       ).toList(),
     );
+    await Future.delayed(Duration.zero);
+    var snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    model.age = snapshot.data()!['age'];
+    model.gender = snapshot.data()!['gender'];
+    model.height = snapshot.data()!['height'];
+    model.weight = snapshot.data()!['weight'];
+    nameController.text = snapshot.data()!['username'];
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    model.age = 'Age';
+    model.gender = 'Gender';
+    model.height = 'Height';
+    model.weight = 'Weight';
+    nameController.text = '';
+
+    heightItems.clear();
+    weightItems.clear();
+    genderItems.clear();
+    ageItems = [
+      const DropdownMenuItem<String>(
+        value: 'Age',
+        child: Text(
+          'Age',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      )
+    ];
+    weightItems = [
+      const DropdownMenuItem<String>(
+        value: 'Weight',
+        child: Text(
+          'Weight',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      )
+    ];
+
+    heightItems = [
+      const DropdownMenuItem<String>(
+        value: 'Height',
+        child: Text(
+          'Height',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      )
+    ];
+
+    genderItems = [
+      const DropdownMenuItem<String>(
+        value: 'Gender',
+        child: Text(
+          'Gender',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+      const DropdownMenuItem<String>(
+        value: 'Male',
+        child: Text(
+          'Male',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+      const DropdownMenuItem<String>(
+        value: 'Female',
+        child: Text(
+          'Female',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+    ];
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(model.gender);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Account Screen'),
+        centerTitle: true,
+      ),
       body: Form(
-          key: _formKey,
+        key: _formKey,
+        child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -103,6 +212,11 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                   ),
                 ),
               ),
+              MyTextFormField(
+                hintText: 'Name',
+                controller: nameController,
+                onSaved: () {},
+              ),
               Container(
                 alignment: Alignment.topCenter,
                 child: Row(
@@ -112,7 +226,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FormDropDownButton(
-                        label: model.weight,
+                        label:'Weight',
                         items: weightItems,
                         valueController: model.weight,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -122,7 +236,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FormDropDownButton(
-                        label: model.height,
+                        label: 'Height',
                         items: heightItems,
                         valueController: model.height,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -135,7 +249,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FormDropDownButton(
-                  label: model.age,
+                  label: 'Age',
                   items: ageItems,
                   valueController: model.age,
                   width: MediaQuery.of(context).size.width,
@@ -145,15 +259,58 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FormDropDownButton(
-                  label: model.gender,
+                  label: 'Gender',
                   items: genderItems,
                   valueController: model.gender,
                   width: MediaQuery.of(context).size.width,
                   suffix: '',
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  // color: Colors.blueAccent,
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      try {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .set({
+                          'username': nameController.text,
+                          'userId': FirebaseAuth.instance.currentUser!.uid,
+                          'weight': model.weight,
+                          'height': model.height,
+                          'age': model.age,
+                          'gender': model.gender,
+                          'customer': 'yes',
+                        });
+                      } on FirebaseException catch (e) {
+                        // TODO
+                        snackBar(context, e.message.toString());
+                      }
+                    }
+                  },
+                  child: const SizedBox(
+                    height: 40.0,
+                    width: 90.0,
+                    child: Center(
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

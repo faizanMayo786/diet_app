@@ -3,19 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../model/user_prover.dart';
 import '/src/screens/home/home_screen.dart';
 import '../../../core/constants/constants.dart';
 import '../../model/user.dart';
 import '../../widget/drop_down_button.dart';
-
-Model model = Model(
-  weight: 'Weight',
-  height: 'Height',
-  age: 'Age',
-  gender: 'Gender',
-  disease: '',
-  registerDate: '',
-);
 
 class BasicInfoForm extends StatefulWidget {
   BasicInfoForm({
@@ -91,9 +83,98 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    // final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
+  void dispose() {
+    // TODO: implement dispose
+    ageItems.clear();
+    heightItems.clear();
+    weightItems.clear();
+    genderItems.clear();
+    model.age = 'Age';
+    model.gender = 'Gender';
+    model.height = 'Height';
+    model.weight = 'Weight';
+    ageItems = [
+      const DropdownMenuItem<String>(
+        value: 'Age',
+        child: Text(
+          'Age',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      )
+    ];
+    weightItems = [
+      const DropdownMenuItem<String>(
+        value: 'Weight',
+        child: Text(
+          'Weight',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      )
+    ];
 
+    heightItems = [
+      const DropdownMenuItem<String>(
+        value: 'Height',
+        child: Text(
+          'Height',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      )
+    ];
+
+    genderItems = [
+      const DropdownMenuItem<String>(
+        value: 'Gender',
+        child: Text(
+          'Gender',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+      const DropdownMenuItem<String>(
+        value: 'Single',
+        child: Text(
+          'Male',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+      const DropdownMenuItem<String>(
+        value: 'Female',
+        child: Text(
+          'Female',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+    ];
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Basic Information'),
@@ -229,36 +310,6 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class MyTextFormField extends StatelessWidget {
-  final String hintText;
-  final bool isPassword;
-  final bool isEmail;
-
-  MyTextFormField({
-    required this.hintText,
-    this.isPassword = false,
-    this.isEmail = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: hintText,
-          contentPadding: const EdgeInsets.all(15.0),
-          border: InputBorder.none,
-          filled: true,
-          fillColor: Colors.grey[200],
-        ),
-        obscureText: isPassword ? true : false,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
       ),
     );
   }

@@ -1,7 +1,9 @@
-import 'package:diet_suggestion_app/src/screens/info/information_screen.dart';
+// ignore_for_file: unnecessary_cast
+
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
+import '../model/user_prover.dart';
 
 // ignore: must_be_immutable
 class FormDropDownButton extends StatefulWidget {
@@ -40,7 +42,7 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
           border: const OutlineInputBorder(),
           suffix: Text(
             widget.suffix,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 16,
               fontWeight: FontWeight.normal,
@@ -54,20 +56,24 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
           color: AppColor.themePrimary,
         ),
         elevation: 16,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Poppins',
           fontSize: 16,
           fontWeight: FontWeight.normal,
           color: Colors.black,
         ),
         validator: (value) {
-          if (widget.valueController.toString() == 'Weight')
+          if (widget.valueController.toString() == 'Weight') {
             return 'Choose Weight';
-          if (widget.valueController.toString() == 'Height')
+          }
+          if (widget.valueController.toString() == 'Height') {
             return 'Choose Height';
+          }
           if (widget.valueController.toString() == 'Age') return 'Choose Age';
-          if (widget.valueController.toString() == 'Gender')
+          if (widget.valueController.toString() == 'Gender') {
+            print(model.gender);
             return 'Choose Gender';
+          }
           return null;
         },
         menuMaxHeight: 200.0,
@@ -79,7 +85,10 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
 
               if (widget.label == 'Weight') model.weight = newValue;
               if (widget.label == 'Height') model.height = newValue;
-              if (widget.label == 'Age') model.age = newValue;
+                print(model.age);
+              if (widget.label == 'Age') {
+                model.age = newValue;
+              }
               if (widget.label == 'Gender') model.gender = newValue;
             },
           );
