@@ -1,9 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable, use_build_context_synchronously, unused_catch_clause
 
-import 'package:diet_suggestion_app/core/constants/constants.dart';
-import 'package:diet_suggestion_app/src/screens/admin_pannel/admin_pannel.dart';
-import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
-import 'package:diet_suggestion_app/src/screens/signup/sign_up_screen.dart';
+import '/core/constants/constants.dart';
+import '/src/screens/signup/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +32,7 @@ class _MyLoginState extends State<MyLogin> {
               padding: const EdgeInsets.only(left: 35, top: 80),
               child: Text(
                 "Welcome\nBack ${widget.label}",
-                style: TextStyle(color: Colors.white, fontSize: 33),
+                style: const TextStyle(color: Colors.white, fontSize: 33),
               ),
             ),
             SingleChildScrollView(
@@ -53,12 +51,12 @@ class _MyLoginState extends State<MyLogin> {
                               !value.contains("@") ||
                               !value.contains(".")) {
                             return "Enter Valid Email";
-                          } else
+                          } else {
                             return null;
+                          }
                         },
                         onChanged: (value) {
                           email = value;
-                          print(email);
                         },
                         decoration: InputDecoration(
                           fillColor: Colors.grey.shade100,
@@ -76,12 +74,12 @@ class _MyLoginState extends State<MyLogin> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Enter Valid Password";
-                          } else
+                          } else {
                             return null;
+                          }
                         },
                         onChanged: (value) {
                           pass = value;
-                          print(pass);
                         },
                         obscureText: true,
                         decoration: InputDecoration(

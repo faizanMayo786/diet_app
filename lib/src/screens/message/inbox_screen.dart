@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diet_suggestion_app/src/screens/message/message_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class InboxScreen extends StatefulWidget {
   const InboxScreen({Key? key}) : super(key: key);
@@ -15,10 +11,9 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
-  var user;
+  late String user;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     user = FirebaseAuth.instance.currentUser!.uid;
   }
@@ -29,7 +24,7 @@ class _InboxScreenState extends State<InboxScreen> {
       stream: FirebaseFirestore.instance.collection('/users').snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasData) {
@@ -78,9 +73,8 @@ class _InboxScreenState extends State<InboxScreen> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
-                                      child: FlutterLogo(
-                                        size: 75,
-                                      ),
+                                      child:
+                                          Image.asset('assets/images/user.png'),
                                     ),
                                   ),
                                   Container(
@@ -99,7 +93,7 @@ class _InboxScreenState extends State<InboxScreen> {
                                               snapshot
                                                   .data!.docs[index]['username']
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 16,
                                               ),
                                             ),
@@ -122,11 +116,11 @@ class _InboxScreenState extends State<InboxScreen> {
                         ),
                       ),
                     )
-                  : Visibility(visible: false, child: SizedBox());
+                  : const Visibility(visible: false, child: const SizedBox());
             },
           );
         } else {
-          return Center(
+          return const Center(
             child: Text('Something Went Wrong'),
           );
         }

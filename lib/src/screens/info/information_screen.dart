@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../../model/user_prover.dart';
 import '/src/screens/home/home_screen.dart';
 import '../../../core/constants/constants.dart';
-import '../../model/user.dart';
 import '../../widget/drop_down_button.dart';
 
 class BasicInfoForm extends StatefulWidget {
@@ -298,7 +297,6 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                         child: Text(
                           'Submit',
                           style: TextStyle(
-                              fontSize: 25.0,
                               color: Colors.white,
                               fontWeight: FontWeight.normal),
                         ),

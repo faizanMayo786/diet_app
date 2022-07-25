@@ -1,7 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class NewMessage extends StatefulWidget {
   NewMessage({
     Key? key,
@@ -13,12 +16,12 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
-  final _controller = new TextEditingController();
+  final _controller = TextEditingController();
   var _enteredMessage = '';
 
   Future<void> _sendMessage() async {
     FocusScope.of(context).unfocus();
-    final user = await FirebaseAuth.instance.currentUser!.uid;
+    final user = FirebaseAuth.instance.currentUser!.uid;
     final username =
         await FirebaseFirestore.instance.collection('users').doc(user).get();
     FirebaseFirestore.instance.collection('chat/${widget.user}/message/').add(
@@ -35,8 +38,8 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
-      padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
           Expanded(
@@ -45,8 +48,8 @@ class _NewMessageState extends State<NewMessage> {
               textCapitalization: TextCapitalization.sentences,
               autocorrect: true,
               enableSuggestions: true,
-              decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
+              decoration: const InputDecoration(
+                enabledBorder:  UnderlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
                 labelText: 'Send a message...',

@@ -1,9 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/constants.dart';
-import '../../model/user.dart';
 import '../../model/user_prover.dart';
 import '../../widget/drop_down_button.dart';
 import '../../widget/text_form_field.dart';
@@ -186,7 +187,6 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(model.gender);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account Screen'),
@@ -287,19 +287,16 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                           'customer': 'yes',
                         });
                       } on FirebaseException catch (e) {
-                        // TODO
                         snackBar(context, e.message.toString());
                       }
                     }
                   },
                   child: const SizedBox(
-                    height: 40.0,
-                    width: 90.0,
+                    width: 50.0,
                     child: Center(
                       child: Text(
-                        'Submit',
+                        'Save',
                         style: TextStyle(
-                            fontSize: 25.0,
                             color: Colors.white,
                             fontWeight: FontWeight.normal),
                       ),

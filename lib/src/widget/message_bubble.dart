@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
@@ -77,8 +80,10 @@ class MessageBubble extends StatelessWidget {
           left: isMe ? null : 120,
           right: isMe ? 120 : null,
           child: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            child: FlutterLogo(),
+            backgroundColor: isMe
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
+            child: SvgPicture.asset('assets/icons/profile.svg'),
           ),
         ),
       ],

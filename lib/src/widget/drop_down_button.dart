@@ -71,7 +71,6 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
           }
           if (widget.valueController.toString() == 'Age') return 'Choose Age';
           if (widget.valueController.toString() == 'Gender') {
-            print(model.gender);
             return 'Choose Gender';
           }
           return null;
@@ -85,7 +84,7 @@ class _FormDropDownButtonState extends State<FormDropDownButton> {
 
               if (widget.label == 'Weight') model.weight = newValue;
               if (widget.label == 'Height') model.height = newValue;
-                print(model.age);
+              print(model.age);
               if (widget.label == 'Age') {
                 model.age = newValue;
               }

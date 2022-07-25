@@ -40,7 +40,7 @@ class DietApp extends StatelessWidget {
               );
             } else if (snapshot.hasData) {
               if (kIsWeb) return AdminPanel();
-              return HomeScreen();
+              return const HomeScreen();
             }
             return const WelcomeScreen();
           }),

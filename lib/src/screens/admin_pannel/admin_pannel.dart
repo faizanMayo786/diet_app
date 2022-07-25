@@ -1,19 +1,10 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
 
-import 'dart:io';
 
-import 'package:diet_suggestion_app/src/model/item.dart';
-import 'package:diet_suggestion_app/src/screens/home/home_screen.dart';
-import 'package:diet_suggestion_app/src/screens/message/inbox_screen.dart';
-import 'package:diet_suggestion_app/src/screens/message/message_screen.dart';
-import 'package:filter_list/filter_list.dart';
+import '/src/screens/message/inbox_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 class AdminPanel extends StatefulWidget {
   @override
@@ -33,7 +24,7 @@ class _AdminPanelState extends State<AdminPanel> {
 
   List<String> label = ['Add Diet Item', 'Queries'];
   List body(BuildContext context) {
-    return [
+    return const[
       Center(
         child: Text('Upload Diet Plan'),
       ),
@@ -61,7 +52,7 @@ class _AdminPanelState extends State<AdminPanel> {
       ),
       appBar: AppBar(
         title: Text(label[_selectedIndex]),
-        leading: SizedBox(),
+        leading: const SizedBox(),
         centerTitle: true,
         actions: [
           IconButton(
@@ -91,7 +82,7 @@ class _AdminPanelState extends State<AdminPanel> {
                   ),
                 );
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
               ))
         ],
