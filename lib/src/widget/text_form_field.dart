@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 class MyTextFormField extends StatelessWidget {
   final String hintText;
   final dynamic onSaved;
-
+  final bool readOnly;
   MyTextFormField({
     Key? key,
     required this.hintText,
     required this.onSaved,
     required this.controller,
+    this.readOnly = false,
   }) : super(key: key);
 
   TextEditingController controller;
@@ -32,6 +33,7 @@ class MyTextFormField extends StatelessWidget {
         validator: (value) {
           return null;
         },
+        readOnly: readOnly,
         keyboardType: TextInputType.text,
       ),
     );

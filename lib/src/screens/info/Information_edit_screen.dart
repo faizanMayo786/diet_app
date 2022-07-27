@@ -277,7 +277,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                         await FirebaseFirestore.instance
                             .collection('users')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .set({
+                            .update({
                           'username': nameController.text,
                           'userId': FirebaseAuth.instance.currentUser!.uid,
                           'weight': model.weight,

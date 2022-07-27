@@ -268,25 +268,28 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .set({
-                            'username': widget.username,
-                            'userId': FirebaseAuth.instance.currentUser!.uid,
-                            'weight': model.weight,
-                            'height': model.height,
-                            'age': model.age,
-                            'gender': model.gender,
-                            'customer': 'yes',
-                          });
+                              .set(
+                            {
+                              'username': widget.username,
+                              'userId': FirebaseAuth.instance.currentUser!.uid,
+                              'weight': model.weight,
+                              'height': model.height,
+                              'age': model.age,
+                              'gender': model.gender,
+                              'customer': 'yes',
+                            },
+                          );
 
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
+                              builder: (context) => const HomeScreen(
+                                index: 1,
+                              ),
                             ),
                             (route) => false,
                           );
-                        } on Exception {
-                        }
+                        } on Exception {}
                       }
                     },
                     child: const SizedBox(
@@ -296,8 +299,9 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                         child: Text(
                           'Submit',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal),
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
                     ),

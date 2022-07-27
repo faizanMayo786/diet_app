@@ -38,8 +38,6 @@ snackBar(BuildContext context, String message) =>
       ),
     );
 
-
-
 List<DropdownMenuItem<String>> ageItems = [
   const DropdownMenuItem<String>(
     value: 'Age',
@@ -109,6 +107,64 @@ List<DropdownMenuItem<String>> genderItems = [
     value: 'Female',
     child: Text(
       'Female',
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  ),
+];
+
+List<DropdownMenuItem<String>> diseaseItem = [
+  const DropdownMenuItem<String>(
+    value: 'Diabetes I',
+    child: Text(
+      'Diabetes I',
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  ),
+  const DropdownMenuItem<String>(
+    value: 'Diabetes II',
+    child: Text(
+      'Diabetes II',
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  ),
+  const DropdownMenuItem<String>(
+    value: 'Liver',
+    child: Text(
+      'Liver',
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  ),
+  const DropdownMenuItem<String>(
+    value: 'Heart Disease',
+    child: Text(
+      'Heart Disease',
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  ),
+  const DropdownMenuItem<String>(
+    value: 'Stomach Disease',
+    child: Text(
+      'Stomach Disease',
       style: TextStyle(
         fontFamily: 'Poppins',
         fontSize: 16,
