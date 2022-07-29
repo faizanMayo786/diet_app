@@ -173,6 +173,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
     ];
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,7 +202,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                     ),
                   ),
                 ),
-                 Container(
+                Container(
                   alignment: Alignment.topCenter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -251,6 +252,13 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                               return weightItems.where((element) =>
                                   element.value.toString().contains(pattern));
                             },
+                            validator: (value) {
+                              if (value == '') {
+                                return 'Select Weight';
+                              } else if (int.parse(value!) <= 0) {
+                                return 'Invalid Weight';
+                              }
+                            },
                           ),
                         ),
                       ),
@@ -297,8 +305,14 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                                 child: Text('${suggestion.value} kg'),
                               );
                             },
+                            validator: (value) {
+                              if (value == '') {
+                                return 'Select Height';
+                              } else if (int.parse(value!) <= 0) {
+                                return 'Invalid Height';
+                              }
+                            },
                             suggestionsCallback: (pattern) async {
-                              print(pattern);
                               return heightItems.where((element) =>
                                   element.value.toString().contains(pattern));
                             },
@@ -343,6 +357,13 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                         ),
                         keyboardType: TextInputType.number,
                       ),
+                      validator: (value) {
+                        if (value == '') {
+                          return 'Select Age';
+                        } else if (int.parse(value!) <= 0) {
+                          return 'Invalid Age';
+                        }
+                      },
                       itemBuilder:
                           (context, DropdownMenuItem<String> suggestion) {
                         return Padding(
@@ -387,9 +408,9 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                             {
                               'username': widget.username,
                               'userId': FirebaseAuth.instance.currentUser!.uid,
-                              'weight': model.weight,
-                              'height': model.height,
-                              'age': model.age,
+                              'weight': weightController.text,
+                              'height': heightController.text,
+                              'age': ageController.text,
                               'gender': model.gender,
                               'customer': 'yes',
                             },

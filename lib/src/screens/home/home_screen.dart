@@ -144,9 +144,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                            width: 60,
-                                            child: Text('Pre-Breakfast')),
-                                        const VerticalDivider(),
+                                            width: 70,
+                                            child: Text(
+                                              'Pre-Breakfast',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(data['prebreakfast']),
@@ -157,9 +162,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                            width: 60,
-                                            child: Text('Breakfast')),
-                                        const VerticalDivider(),
+                                            width: 70,
+                                            child: Text(
+                                              'Breakfast',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(data['breakfast']),
@@ -170,8 +180,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                            width: 60, child: Text('Snacks')),
-                                        const VerticalDivider(),
+                                            width: 70,
+                                            child: Text(
+                                              'Snacks',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(data['snacks']),
@@ -182,8 +198,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                            width: 60, child: Text('Lunch')),
-                                        const VerticalDivider(),
+                                            width: 70,
+                                            child: Text(
+                                              'Lunch',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                        
                                         SizedBox(
                                             width: 250,
                                             child: Text(data['lunch']))
@@ -193,12 +215,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                          width: 60,
+                                          width: 70,
                                           child: Text(
                                             'Dinner',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        const VerticalDivider(),
+                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(
@@ -212,15 +237,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                          width: 60,
+                                          width: 70,
                                           child: Text(
                                             'Bed Time',
                                             maxLines: 3,
                                             softWrap: false,
-                                            style: TextStyle(),
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        const VerticalDivider(),
+                                        
                                         SizedBox(
                                             width: 250,
                                             child: Text(data['bedtime']))

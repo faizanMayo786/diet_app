@@ -266,6 +266,13 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                               child: Text('${suggestion.value} kg'),
                             );
                           },
+                          validator: (value) {
+                            if (value == '') {
+                              return 'Select Weight';
+                            } else if (int.parse(value!) <= 0) {
+                              return 'Invalid Weight';
+                            }
+                          },
                           suggestionsCallback: (pattern) async {
                             return weightItems.where((element) =>
                                 element.value.toString().contains(pattern));
@@ -309,6 +316,13 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                                 filled: true),
                             keyboardType: TextInputType.number,
                           ),
+                          validator: (value) {
+                            if (value == '') {
+                              return 'Select Height';
+                            } else if (int.parse(value!) <= 0) {
+                              return 'Invalid Height';
+                            }
+                          },
                           itemBuilder:
                               (context, DropdownMenuItem<String> suggestion) {
                             return Padding(
@@ -347,6 +361,13 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                       setState(() {
                         ageController.text = suggestion.value.toString();
                       });
+                    },
+                    validator: (value) {
+                      if (value == '') {
+                        return 'Select Age';
+                      } else if (int.parse(value!) <= 0) {
+                        return 'Invalid Age';
+                      }
                     },
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: ageController,
