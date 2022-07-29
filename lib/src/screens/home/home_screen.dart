@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, use_build_context_synchronously, unnecessary_null_comparison
+// ignore_for_file: unused_import, use_build_context_synchronously, unnecessary_null_comparison, prefer_typing_uninitialized_variables
 
 import 'dart:math';
 
@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   circularStrokeCap: CircularStrokeCap.round,
                 //   progressColor: Colors.orange,
                 // ),
-                Container(
+                SizedBox(
                   height: 500,
                   child: _isLoading
                       ? const Center(
@@ -550,7 +550,7 @@ class _HomeScreenState extends State<HomeScreen> {
           boxShadow: const [
             BoxShadow(
               color: Colors.grey,
-              offset: const Offset(2, 2),
+              offset: Offset(2, 2),
               blurRadius: 2,
             )
           ],

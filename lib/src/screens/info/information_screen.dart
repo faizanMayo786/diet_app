@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api, use_build_context_synchronously, empty_catches
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api, use_build_context_synchronously, empty_catches, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -258,6 +258,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                               } else if (int.parse(value!) <= 0) {
                                 return 'Invalid Weight';
                               }
+                              return null;
                             },
                           ),
                         ),
@@ -301,6 +302,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                               } else if (int.parse(value!) <= 0) {
                                 return 'Invalid Height';
                               }
+                              return null;
                             },
                             suggestionsCallback: (pattern) async {
                               return heightItems.where((element) =>
@@ -353,6 +355,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                         } else if (int.parse(value!) <= 0) {
                           return 'Invalid Age';
                         }
+                        return null;
                       },
                       itemBuilder:
                           (context, DropdownMenuItem<String> suggestion) {
@@ -403,7 +406,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                               'age': ageController.text,
                               'gender': model.gender,
                               'customer': 'yes',
-                              'progress':0,
+                              'progress': 0,
                             },
                           );
 

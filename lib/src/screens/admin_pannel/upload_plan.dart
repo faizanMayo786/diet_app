@@ -3,13 +3,9 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/constants.dart';
-import '../../model/user_provider.dart';
-import '../../widget/drop_down_button.dart';
-import '../../widget/text_form_field.dart';
 
 class UploadPlanScreen extends StatefulWidget {
   const UploadPlanScreen({Key? key}) : super(key: key);

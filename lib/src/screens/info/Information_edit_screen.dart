@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -272,6 +272,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                             } else if (int.parse(value!) <= 0) {
                               return 'Invalid Weight';
                             }
+                            return null;
                           },
                           suggestionsCallback: (pattern) async {
                             return weightItems.where((element) =>
@@ -322,11 +323,12 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                             } else if (int.parse(value!) <= 0) {
                               return 'Invalid Height';
                             }
+                            return null;
                           },
                           itemBuilder:
                               (context, DropdownMenuItem<String> suggestion) {
                             return Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: Text('${suggestion.value} cm'),
                             );
                           },
@@ -368,6 +370,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                       } else if (int.parse(value!) <= 0) {
                         return 'Invalid Age';
                       }
+                      return null;
                     },
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: ageController,
@@ -386,7 +389,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                     itemBuilder:
                         (context, DropdownMenuItem<String> suggestion) {
                       return Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: Text('${suggestion.value}'),
                       );
                     },

@@ -432,7 +432,7 @@ class _AdminPanelState extends State<AdminPanel> {
                       }
                     }
                     return const Center(
-                        child: const Text('Something Went Wrong!'));
+                        child: Text('Something Went Wrong!'));
                   },
                 ),
               ),
@@ -467,7 +467,7 @@ class _AdminPanelState extends State<AdminPanel> {
           ),
         ),
         actions: [
-          Container(
+          SizedBox(
             width: 430,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
