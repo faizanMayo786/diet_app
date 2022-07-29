@@ -23,6 +23,7 @@ dependencies:
   filter_list: ^1.0.2
   percent_indicator: ^4.2.2
   firebase_storage: ^10.3.1
+  flutter_typeahead: ^4.0.0
 
 dev_dependencies:
   flutter_test:

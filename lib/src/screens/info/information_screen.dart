@@ -3,10 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '/src/screens/home/home_screen.dart';
 import '../../../core/constants/constants.dart';
-import '../../model/user_prover.dart';
+import '../../model/user_provider.dart';
 import '../../widget/drop_down_button.dart';
 
 class BasicInfoForm extends StatefulWidget {
@@ -22,7 +23,9 @@ class BasicInfoForm extends StatefulWidget {
 
 class _BasicInfoFormState extends State<BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
-
+  TextEditingController ageController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -63,7 +66,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
       ).toList(),
     );
     heightItems.addAll(
-      List.generate(100, (index) => index.toString())
+      List.generate(250, (index) => index.toString())
           .map<DropdownMenuItem<String>>(
         (String value) {
           return DropdownMenuItem<String>(
@@ -84,55 +87,55 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
 
   @override
   void dispose() {
-    ageItems.clear();
-    heightItems.clear();
-    weightItems.clear();
-    genderItems.clear();
     model.age = 'Age';
     model.gender = 'Gender';
     model.height = 'Height';
     model.weight = 'Weight';
+    ageController.dispose();
+    heightController.dispose();
+    weightController.dispose();
+    heightItems.clear();
+    weightItems.clear();
+    genderItems.clear();
     ageItems = [
-      const DropdownMenuItem<String>(
-        value: 'Age',
-        child: Text(
-          'Age',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 16,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      )
+      // const DropdownMenuItem<String>(
+      //   value: 'Age',
+      //   child: Text(
+      //     'Age',
+      //     style: TextStyle(
+      //       fontFamily: 'Poppins',
+      //       fontSize: 16,
+      //       fontWeight: FontWeight.normal,
+      //     ),
+      //   ),
+      // )
     ];
     weightItems = [
-      const DropdownMenuItem<String>(
-        value: 'Weight',
-        child: Text(
-          'Weight',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 16,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      )
+      // const DropdownMenuItem<String>(
+      //   value: 'Weight',
+      //   child: Text(
+      //     'Weight',
+      //     style: TextStyle(
+      //       fontFamily: 'Poppins',
+      //       fontSize: 16,
+      //       fontWeight: FontWeight.normal,
+      //     ),
+      //   ),
+      // )
     ];
-
     heightItems = [
-      const DropdownMenuItem<String>(
-        value: 'Height',
-        child: Text(
-          'Height',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 16,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      )
+      // const DropdownMenuItem<String>(
+      //   value: 'Height',
+      //   child: Text(
+      //     'Height',
+      //     style: TextStyle(
+      //       fontFamily: 'Poppins',
+      //       fontSize: 16,
+      //       fontWeight: FontWeight.normal,
+      //     ),
+      //   ),
+      // )
     ];
-
     genderItems = [
       const DropdownMenuItem<String>(
         value: 'Gender',
@@ -146,7 +149,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
         ),
       ),
       const DropdownMenuItem<String>(
-        value: 'Single',
+        value: 'Male',
         child: Text(
           'Male',
           style: TextStyle(
@@ -168,10 +171,8 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
         ),
       ),
     ];
-
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,57 +201,171 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                     ),
                   ),
                 ),
-                Container(
+                 Container(
                   alignment: Alignment.topCenter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FormDropDownButton(
-                          label: model.weight,
-                          items: weightItems,
-                          valueController: model.weight,
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          suffix: 'kg',
-                          // isEmail: true,
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: FormDropDownButton(
+                      //     label:'Weight',
+                      //     items: weightItems,
+                      //     valueController: model.weight,
+                      //     width: MediaQuery.of(context).size.width * 0.45,
+                      //     suffix: 'kg',
+                      //   ),
+                      // ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TypeAheadFormField(
+                            onSuggestionSelected:
+                                (DropdownMenuItem<String> suggestion) {
+                              weightController.text =
+                                  suggestion.value.toString();
+                            },
+                            textFieldConfiguration: TextFieldConfiguration(
+                              controller: weightController,
+                              decoration: InputDecoration(
+                                  hintText: 'Weight',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 0),
+                                  suffix: const Text('kg'),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  fillColor: Colors.grey.shade100,
+                                  filled: true),
+                              keyboardType: TextInputType.number,
+                            ),
+                            itemBuilder:
+                                (context, DropdownMenuItem<String> suggestion) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${suggestion.value} kg'),
+                              );
+                            },
+                            suggestionsCallback: (pattern) async {
+                              return weightItems.where((element) =>
+                                  element.value.toString().contains(pattern));
+                            },
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FormDropDownButton(
-                          label: model.height,
-                          items: heightItems,
-                          valueController: model.height,
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          suffix: 'cm',
-                          // isEmail: true,
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: FormDropDownButton(
+                      //     label: 'Height',
+                      //     items: heightItems,
+                      //     valueController: model.height,
+                      //     width: MediaQuery.of(context).size.width * 0.45,
+                      //     suffix: 'cm',
+                      //   ),
+                      // ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TypeAheadFormField(
+                            onSuggestionSelected:
+                                (DropdownMenuItem<String> suggestion) {
+                              print(suggestion.value.toString());
+                              setState(() {
+                                heightController.text =
+                                    suggestion.value.toString();
+                              });
+                            },
+                            textFieldConfiguration: TextFieldConfiguration(
+                              controller: heightController,
+                              decoration: InputDecoration(
+                                  suffix: const Text('cm'),
+                                  hintText: 'Height',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 0),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  fillColor: Colors.grey.shade100,
+                                  filled: true),
+                              keyboardType: TextInputType.number,
+                            ),
+                            itemBuilder:
+                                (context, DropdownMenuItem<String> suggestion) {
+                              return Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text('${suggestion.value} kg'),
+                              );
+                            },
+                            suggestionsCallback: (pattern) async {
+                              print(pattern);
+                              return heightItems.where((element) =>
+                                  element.value.toString().contains(pattern));
+                            },
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FormDropDownButton(
-                    label: model.age,
-                    items: ageItems,
-                    valueController: model.age,
-                    width: MediaQuery.of(context).size.width,
-                    suffix: '',
-                    // isEmail: true,
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: FormDropDownButton(
+                //     label: 'Age',
+                //     items: ageItems,
+                //     valueController: model.age,
+                //     width: MediaQuery.of(context).size.width,
+                //     suffix: '',
+                //   ),
+                // ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TypeAheadFormField(
+                      onSuggestionSelected:
+                          (DropdownMenuItem<String> suggestion) {
+                        setState(() {
+                          ageController.text = suggestion.value.toString();
+                        });
+                      },
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: ageController,
+                        decoration: InputDecoration(
+                          hintText: 'Age',
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 0),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(5)),
+                          fillColor: Colors.grey.shade100,
+                          filled: true,
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      itemBuilder:
+                          (context, DropdownMenuItem<String> suggestion) {
+                        return Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('${suggestion.value}'),
+                        );
+                      },
+                      suggestionsCallback: (pattern) async {
+                        return ageItems.where((element) =>
+                            element.value.toString().contains(pattern));
+                      },
+                    ),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FormDropDownButton(
-                    label: model.gender,
+                    label: 'Gender',
                     items: genderItems,
                     valueController: model.gender,
                     width: MediaQuery.of(context).size.width,
                     suffix: '',
-                    // isEmail: true,
                   ),
                 ),
                 Padding(

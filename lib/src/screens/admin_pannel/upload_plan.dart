@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/constants.dart';
-import '../../model/user_prover.dart';
+import '../../model/user_provider.dart';
 import '../../widget/drop_down_button.dart';
 import '../../widget/text_form_field.dart';
 

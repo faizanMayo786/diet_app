@@ -39,45 +39,45 @@ snackBar(BuildContext context, String message) =>
     );
 
 List<DropdownMenuItem<String>> ageItems = [
-  const DropdownMenuItem<String>(
-    value: 'Age',
-    child: Text(
-      'Age',
-      style: TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 16,
-        fontWeight: FontWeight.normal,
-      ),
-    ),
-  )
+  // const DropdownMenuItem<String>(
+  //   value: 'Age',
+  //   child: Text(
+  //     'Age',
+  //     style: TextStyle(
+  //       fontFamily: 'Poppins',
+  //       fontSize: 16,
+  //       fontWeight: FontWeight.normal,
+  //     ),
+  //   ),
+  // )
 ];
 
 List<DropdownMenuItem<String>> weightItems = [
-  const DropdownMenuItem<String>(
-    value: 'Weight',
-    child: Text(
-      'Weight',
-      style: TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 16,
-        fontWeight: FontWeight.normal,
-      ),
-    ),
-  )
+  // const DropdownMenuItem<String>(
+  //   value: 'Weight',
+  //   child: Text(
+  //     'Weight',
+  //     style: TextStyle(
+  //       fontFamily: 'Poppins',
+  //       fontSize: 16,
+  //       fontWeight: FontWeight.normal,
+  //     ),
+  //   ),
+  // )
 ];
 
 List<DropdownMenuItem<String>> heightItems = [
-  const DropdownMenuItem<String>(
-    value: 'Height',
-    child: Text(
-      'Height',
-      style: TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 16,
-        fontWeight: FontWeight.normal,
-      ),
-    ),
-  )
+  // const DropdownMenuItem<String>(
+  //   value: 'Height',
+  //   child: Text(
+  //     'Height',
+  //     style: TextStyle(
+  //       fontFamily: 'Poppins',
+  //       fontSize: 16,
+  //       fontWeight: FontWeight.normal,
+  //     ),
+  //   ),
+  // )
 ];
 
 List<DropdownMenuItem<String>> genderItems = [

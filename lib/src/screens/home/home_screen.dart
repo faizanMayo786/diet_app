@@ -31,12 +31,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String disease = 'Diabetes 1';
   String username = '';
+  String currentDisease = '';
   var _selectedIndex = 0;
   String status = 'No Plan Generated';
   @override
   initState() {
     super.initState();
-    getName();
+
     getDietPlan();
     _selectedIndex = widget.index;
   }
@@ -48,11 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
         .get();
     setState(() {
       username = name.data()!['username'].toString();
+      currentDisease = name.data()!['disease'].toString();
     });
   }
 
   var data;
   getDietPlan() async {
+    setState(() {
+      _isLoading = true;
+    });
+    getName();
     var id = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -63,15 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
           .collection('diet-plan')
           .doc(id.data()!['dietplanId'])
           .get();
+      if (snapshot.data() == null) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
       data = snapshot.data();
     } else {
       data = null;
     }
     if (id.data()!['status'] != null) {
-      print('run');
       status = id.data()!['status'];
     }
-    setState(() {});
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   List buttonNames = [
@@ -81,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Heart Disease',
     'Stomach Disease'
   ];
-
+  bool _isLoading = false;
   List<String> label = ['Diet Plans', 'Disease'];
   body() => [
         Container(
@@ -115,164 +127,204 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ),
                 Container(
                   height: 500,
-                  child: data != null
-                      ? Center(
-                          child: SingleChildScrollView(
-                              child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(12),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Divider(),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                        width: 60,
-                                        child: Text('Pre-Breakfast')),
-                                    const VerticalDivider(),
-                                    SizedBox(
-                                      width: 250,
-                                      child: Text(data['prebreakfast']),
-                                    )
-                                  ],
-                                ),
-                                const Divider(),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                        width: 60, child: Text('Breakfast')),
-                                    const VerticalDivider(),
-                                    SizedBox(
-                                      width: 250,
-                                      child: Text(data['breakfast']),
-                                    )
-                                  ],
-                                ),
-                                const Divider(),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                        width: 60, child: Text('Snacks')),
-                                    const VerticalDivider(),
-                                    SizedBox(
-                                      width: 250,
-                                      child: Text(data['snacks']),
-                                    )
-                                  ],
-                                ),
-                                const Divider(),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                        width: 60, child: Text('Lunch')),
-                                    const VerticalDivider(),
-                                    SizedBox(
-                                        width: 250, child: Text(data['lunch']))
-                                  ],
-                                ),
-                                const Divider(),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 60,
-                                      child: Text(
-                                        'Dinner',
-                                      ),
-                                    ),
-                                    const VerticalDivider(),
-                                    SizedBox(
-                                      width: 250,
-                                      child: Text(
-                                        data['dinner'].toString(),
-                                        maxLines: 3,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const Divider(),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 60,
-                                      child: Text(
-                                        'Bed Time',
-                                        maxLines: 3,
-                                        softWrap: false,
-                                        style: TextStyle(),
-                                      ),
-                                    ),
-                                    const VerticalDivider(),
-                                    SizedBox(
-                                        width: 250,
-                                        child: Text(data['bedtime']))
-                                  ],
-                                ),
-                                const Divider(),
-                              ],
-                            ),
-                          )),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
                         )
-                      : const Center(
-                          child:
-                              Text('Tap on Generate Button to Generate Plan'),
-                        ),
+                      : data != null
+                          ? Center(
+                              child: SingleChildScrollView(
+                                  child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Divider(),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                            width: 60,
+                                            child: Text('Pre-Breakfast')),
+                                        const VerticalDivider(),
+                                        SizedBox(
+                                          width: 250,
+                                          child: Text(data['prebreakfast']),
+                                        )
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                            width: 60,
+                                            child: Text('Breakfast')),
+                                        const VerticalDivider(),
+                                        SizedBox(
+                                          width: 250,
+                                          child: Text(data['breakfast']),
+                                        )
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                            width: 60, child: Text('Snacks')),
+                                        const VerticalDivider(),
+                                        SizedBox(
+                                          width: 250,
+                                          child: Text(data['snacks']),
+                                        )
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                            width: 60, child: Text('Lunch')),
+                                        const VerticalDivider(),
+                                        SizedBox(
+                                            width: 250,
+                                            child: Text(data['lunch']))
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 60,
+                                          child: Text(
+                                            'Dinner',
+                                          ),
+                                        ),
+                                        const VerticalDivider(),
+                                        SizedBox(
+                                          width: 250,
+                                          child: Text(
+                                            data['dinner'].toString(),
+                                            maxLines: 3,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 60,
+                                          child: Text(
+                                            'Bed Time',
+                                            maxLines: 3,
+                                            softWrap: false,
+                                            style: TextStyle(),
+                                          ),
+                                        ),
+                                        const VerticalDivider(),
+                                        SizedBox(
+                                            width: 250,
+                                            child: Text(data['bedtime']))
+                                      ],
+                                    ),
+                                    const Divider(),
+                                  ],
+                                ),
+                              )),
+                            )
+                          : const Center(
+                              child: Text(
+                                  'Tap on Generate Button to Generate Plan'),
+                            ),
                 ),
                 Column(
                   children: [
                     const SizedBox(
                       height: 10.0,
                     ),
-                    SizedBox(
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       width: 160.0,
+                      height: 40,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
+                          primary: _isLoading ? Colors.grey : Colors.orange,
                         ),
+                        onPressed: _isLoading
+                            ? () {}
+                            : () async {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                String uid =
+                                    FirebaseAuth.instance.currentUser!.uid;
+                                String newstatus = 'No Plan Generated';
+                                if (status == 'No Plan Generated' ||
+                                    status == 'Completed') {
+                                  var snapshot = await FirebaseFirestore
+                                      .instance
+                                      .collection('diet-plan')
+                                      .where('type', isEqualTo: currentDisease)
+                                      .get();
+                                  if (snapshot.docs.isEmpty) {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        const SnackBar(
+                                          duration: Duration(seconds: 1),
+                                          content: Text(
+                                            'You didn\'t specified any disease!',
+                                            style: TextStyle(
+                                              color: Colors.orange,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    return;
+                                  }
+                                  newstatus = 'In Progress';
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(uid)
+                                      .update({
+                                    'status': newstatus,
+                                    'dietplanId': snapshot
+                                        .docs[Random()
+                                            .nextInt(snapshot.docs.length)]
+                                        .id,
+                                  });
+                                } else if (status == 'In Progress') {
+                                  newstatus = 'Completed';
+                                  setState(() {
+                                    status = newstatus;
+                                  });
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(uid)
+                                      .update(
+                                    {'status': newstatus, 'dietplanId': ''},
+                                  );
+                                }
+
+                                await getDietPlan();
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              },
                         child: Center(
                           child: Text(
                             status == 'No Plan Generated' ||
                                     status == 'Completed'
-                                ? "Generat Meal Plan"
+                                ? "Generate Meal Plan"
                                 : "Mark as Completed",
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () async {
-                          String uid = FirebaseAuth.instance.currentUser!.uid;
-                          String newstatus = 'No Plan Generated';
-                          if (status == 'No Plan Generated' ||
-                              status == 'Completed') {
-                            var snapshot = await FirebaseFirestore.instance
-                                .collection('diet-plan')
-                                .where('type', isEqualTo: 'Stomach Disease')
-                                .get();
-
-                            newstatus = 'In Progress';
-                            await FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(uid)
-                                .update({
-                              'status': newstatus,
-                              'dietplanId': snapshot
-                                  .docs[Random().nextInt(snapshot.docs.length)]
-                                  .id,
-                            });
-                          } else if (status == 'In Progress') {
-                            newstatus = 'Completed';
-                            setState(() {
-                              status = newstatus;
-                            });
-                            await FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(uid)
-                                .update(
-                              {'status': newstatus, 'dietplanId': ''},
-                            );
-                          }
-
-                          getDietPlan();
-                        },
                       ),
                     ),
                     const SizedBox(
