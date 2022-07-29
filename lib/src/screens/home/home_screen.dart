@@ -3,9 +3,9 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diet_suggestion_app/core/constants/constants.dart';
-import 'package:diet_suggestion_app/src/screens/detail/desease_form.dart';
-import 'package:diet_suggestion_app/src/screens/info/information_edit_screen.dart';
+import '/core/constants/constants.dart';
+import '/src/screens/detail/desease_form.dart';
+import '/src/screens/info/information_edit_screen.dart';
 import '../../widget/drop_down_button.dart';
 import '/src/screens/message/message_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,10 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String currentDisease = '';
   var _selectedIndex = 0;
   String status = 'No Plan Generated';
+  double percent = 0;
+
   @override
   initState() {
     super.initState();
-
+    setState(() {
+      _isLoading = true;
+    });
     getDietPlan();
     _selectedIndex = widget.index;
   }
@@ -55,9 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var data;
   getDietPlan() async {
-    setState(() {
-      _isLoading = true;
-    });
     getName();
     var id = await FirebaseFirestore.instance
         .collection('users')
@@ -80,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     if (id.data()!['status'] != null) {
       status = id.data()!['status'];
+      if (id.data()!['progress'] != null) percent = id.data()!['progress'];
     }
     setState(() {
       _isLoading = false;
@@ -95,6 +97,57 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   bool _isLoading = false;
   List<String> label = ['Diet Plans', 'Disease'];
+  mood(double value) {
+    if (value == 0.0) {
+      return const Icon(
+        Icons.sentiment_very_dissatisfied,
+        color: Colors.red,
+      );
+    }
+    if (value == 0.25) {
+      return Icon(
+        Icons.sentiment_dissatisfied,
+        color: Colors.red.shade300,
+      );
+    }
+    if (value == 0.5) {
+      return const Icon(
+        Icons.sentiment_neutral,
+        color: Colors.grey,
+      );
+    }
+    if (value == 0.75) {
+      return const Icon(
+        Icons.sentiment_satisfied_outlined,
+        color: Colors.green,
+      );
+    }
+    if (value == 1) {
+      return const Icon(
+        Icons.mood,
+        color: Colors.orange,
+      );
+    }
+  }
+
+  week(double value) {
+    if (value == 0.0) {
+      return 'Complete Week 1';
+    }
+    if (value == 0.25) {
+      return 'Complete Week 2';
+    }
+    if (value == 0.5) {
+      return 'Complete Week 3';
+    }
+    if (value == 0.75) {
+      return 'Complete Week 4';
+    }
+    if (value == 1) {
+      return 'Completed';
+    }
+  }
+
   body() => [
         Container(
           //
@@ -140,6 +193,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Progress',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(15.0),
+                                            child: LinearPercentIndicator(
+                                              animation: true,
+                                              trailing: mood(percent),
+                                              lineHeight: 20.0,
+                                              animationDuration: 500,
+                                              percent: percent,
+                                              center: Text(
+                                                "${percent * 100} %",
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              barRadius:
+                                                  const Radius.circular(15),
+                                              progressColor: Colors.orange,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     const Divider(),
                                     Row(
                                       children: [
@@ -151,7 +234,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             )),
-                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(data['prebreakfast']),
@@ -169,7 +251,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             )),
-                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(data['breakfast']),
@@ -187,7 +268,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             )),
-                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(data['snacks']),
@@ -198,14 +278,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         const SizedBox(
-                                            width: 70,
-                                            child: Text(
-                                              'Lunch',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )),
-                                        
+                                          width: 70,
+                                          child: Text(
+                                            'Lunch',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                         SizedBox(
                                             width: 250,
                                             child: Text(data['lunch']))
@@ -223,7 +303,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                         ),
-                                        
                                         SizedBox(
                                           width: 250,
                                           child: Text(
@@ -247,7 +326,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                         ),
-                                        
                                         SizedBox(
                                             width: 250,
                                             child: Text(data['bedtime']))
@@ -282,14 +360,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: _isLoading
                             ? () {}
                             : () async {
-                                setState(() {
-                                  _isLoading = true;
-                                });
                                 String uid =
                                     FirebaseAuth.instance.currentUser!.uid;
                                 String newstatus = 'No Plan Generated';
                                 if (status == 'No Plan Generated' ||
                                     status == 'Completed') {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+
                                   var snapshot = await FirebaseFirestore
                                       .instance
                                       .collection('diet-plan')
@@ -320,12 +399,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .doc(uid)
                                       .update({
                                     'status': newstatus,
+                                    'progress': percent,
                                     'dietplanId': snapshot
                                         .docs[Random()
                                             .nextInt(snapshot.docs.length)]
                                         .id,
                                   });
+                                } else if (status == 'In Progress' &&
+                                    percent < 1) {
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(uid)
+                                      .update(
+                                    {'progress': percent + 0.25 % 1},
+                                  );
                                 } else if (status == 'In Progress') {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+
                                   newstatus = 'Completed';
                                   setState(() {
                                     status = newstatus;
@@ -334,7 +426,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .collection('users')
                                       .doc(uid)
                                       .update(
-                                    {'status': newstatus, 'dietplanId': ''},
+                                    {
+                                      'status': newstatus,
+                                      'dietplanId': '',
+                                      'progress': 0.0,
+                                    },
                                   );
                                 }
 
@@ -348,7 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             status == 'No Plan Generated' ||
                                     status == 'Completed'
                                 ? "Generate Meal Plan"
-                                : "Mark as Completed",
+                                : week(percent),
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),

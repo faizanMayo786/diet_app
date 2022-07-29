@@ -327,7 +327,7 @@ class _InformationEditScreenState extends State<InformationEditScreen> {
                               (context, DropdownMenuItem<String> suggestion) {
                             return Padding(
                               padding: EdgeInsets.all(8),
-                              child: Text('${suggestion.value} kg'),
+                              child: Text('${suggestion.value} cm'),
                             );
                           },
                           suggestionsCallback: (pattern) async {

@@ -262,16 +262,6 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                           ),
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: FormDropDownButton(
-                      //     label: 'Height',
-                      //     items: heightItems,
-                      //     valueController: model.height,
-                      //     width: MediaQuery.of(context).size.width * 0.45,
-                      //     suffix: 'cm',
-                      //   ),
-                      // ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -301,8 +291,8 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                             itemBuilder:
                                 (context, DropdownMenuItem<String> suggestion) {
                               return Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text('${suggestion.value} kg'),
+                                padding: const EdgeInsets.all(8),
+                                child: Text('${suggestion.value} cm'),
                               );
                             },
                             validator: (value) {
@@ -367,7 +357,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                       itemBuilder:
                           (context, DropdownMenuItem<String> suggestion) {
                         return Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Text('${suggestion.value}'),
                         );
                       },
@@ -413,6 +403,7 @@ class _BasicInfoFormState extends State<BasicInfoForm> {
                               'age': ageController.text,
                               'gender': model.gender,
                               'customer': 'yes',
+                              'progress':0,
                             },
                           );
 
